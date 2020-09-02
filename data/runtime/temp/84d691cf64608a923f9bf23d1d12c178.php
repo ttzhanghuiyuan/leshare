@@ -1,4 +1,4 @@
-<?php /*a:2:{s:73:"/home/abner/leshare/public/themes/admin_simpleboot3/admin/user/index.html";i:1596948335;s:70:"/home/abner/leshare/public/themes/admin_simpleboot3/public/header.html";i:1596947788;}*/ ?>
+<?php /*a:2:{s:73:"/home/abner/leshare/public/themes/admin_simpleboot3/admin/user/index.html";i:1596948335;s:70:"/home/abner/leshare/public/themes/admin_simpleboot3/public/header.html";i:1598770981;}*/ ?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -20,32 +20,7 @@
     <!--[if lt IE 9]>
     <script src="https://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
-    <style>
-        form .input-order {
-            margin-bottom: 0px;
-            padding: 0 2px;
-            width: 42px;
-            font-size: 12px;
-        }
 
-        form .input-order:focus {
-            outline: none;
-        }
-
-        .table-actions {
-            margin-top: 5px;
-            margin-bottom: 5px;
-            padding: 0px;
-        }
-
-        .table-list {
-            margin-bottom: 0px;
-        }
-
-        .form-required {
-            color: red;
-        }
-    </style>
     <script type="text/javascript">
         //全局变量
         var GV = {

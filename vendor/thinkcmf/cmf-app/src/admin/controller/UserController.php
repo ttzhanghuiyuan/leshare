@@ -127,7 +127,6 @@ class UserController extends AdminBaseController
     public function addPost()
     {
         if ($this->request->isPost()) {
-            $this->error(json_encode($this->request->param()));
             if (!empty($_POST['role_id']) && is_array($_POST['role_id'])) {
                 $role_ids = $_POST['role_id'];
                 unset($_POST['role_id']);
