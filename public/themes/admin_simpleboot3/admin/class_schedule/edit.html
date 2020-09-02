@@ -1,0 +1,129 @@
+<include file="public@header"/>
+</head>
+<body>
+<div class="wrap">
+    <ul class="nav nav-tabs">
+        <li><a href="{:url('class_schedule/index')}">{:lang('课表')}</a></li>
+        <li><a href="{:url('class_schedule/add')}">{:lang('课表添加')}</a></li>
+        <li class="active"><a>课表编辑</a></li>
+    </ul>
+    <form method="post" class="form-horizontal js-ajax-form margin-top-20" action="{:url('ClassSchedule/editPost')}">
+        <div class="form-group">
+            <!--课表类型-->
+            <div class="form-group">
+                <label for="input-sch-type" class="col-sm-2 control-label">
+                    <span class="form-required">*</span>{:lang('课表类型')}</label>
+                <div class="col-md-6 col-sm-10">
+                    <select class="form-control" name="sch_type" id="input-sch-type" style="width: 150px;">
+                        <foreach name="sch_type_list" item="vo">
+                            <php>$st_selected=isset($sch_type)&&$sch_type==$key?"selected":"";</php>
+                            <option value="{$key}" {$st_selected}>{$vo}</option>
+                        </foreach>
+                    </select>
+                </div>
+            </div>
+
+            <!--课程等级-->
+            <div class="form-group">
+                <label for="input-level-id" class="col-sm-2 control-label">
+                    <span class="form-required">*</span>{:lang('课程等级')}</label>
+                <div class="col-md-6 col-sm-10">
+                    <select class="form-control" name="level_id" id="input-level-id" style="width: 150px;">
+                        <foreach name="class_level_list" item="vo">
+                            <php>$li_selected=isset($level_id)&&$level_id==$key?"selected":"";</php>
+                            <option value="{$vo['id']}" {$li_selected}>{$vo['name']}</option>
+                        </foreach>
+                    </select>
+                </div>
+            </div>
+
+            <!--报名人数-->
+            <div class="form-group">
+                <label for="input-study-num" class="col-sm-2 control-label">
+                    <span class="form-required">*</span>{:lang('班级容量')}</label>
+                <div class="col-md-2 col-sm-3">
+                    <input value="{$study_num}" type="text" class="form-control" id="input-study-num" name="study_num">
+                </div>
+            </div>
+
+            <!--课程开始时间-->
+            <div class="form-group">
+                <label for="input-start-hour" class="col-sm-2 control-label">
+                    <span class="form-required">*</span>{:lang('开始时间-时')}</label>
+                <div class="col-md-2 col-sm-3">
+                    <input value="{$start_hour}" type="text" class="form-control" id="input-start-hour" name="start_hour">
+                </div>
+            </div>
+
+            <!--课程开始时间-->
+            <div class="form-group">
+                <label for="input-start-minute" class="col-sm-2 control-label">
+                    {:lang('开始时间-分')}
+                </label>
+                <div class="col-md-2 col-sm-3">
+                    <input value="{$start_minute}" type="text" class="form-control" id="input-start-minute" name="start_minute">
+                </div>
+            </div>
+
+            <!--课程结束时间-->
+            <div class="form-group">
+                <label for="input-end-hour" class="col-sm-2 control-label">
+                    <span class="form-required">*</span>{:lang('结束时间-时')}</label>
+                <div class="col-md-2 col-sm-3">
+                    <input value="{$end_hour}" type="text" class="form-control" id="input-end-hour" name="end_hour">
+                </div>
+            </div>
+
+            <!--课程结束时间-->
+            <div class="form-group">
+                <label for="input-end-minute" class="col-sm-2 control-label">
+                    {:lang('结束时间-分')}
+                </label>
+                <div class="col-md-2 col-sm-3">
+                    <input value="{$end_minute}" type="text" class="form-control" id="input-end-minute" name="end_minute">
+                </div>
+            </div>
+
+            <!--课程时间-->
+            <div class="form-group">
+                <label for="input-class-date" class="col-sm-2 control-label">
+                    {:lang('课程时间')}
+                </label>
+                <div class="col-md-2 col-sm-3">
+                    <input class="js-date"
+                           value="{$class_date}"
+                           type="text"
+                           id="input-class-date"
+                           placeholder="2013-01-04"
+                           name="class_date">
+                </div>
+            </div>
+
+            <!--启用标识-->
+            <div class="form-group">
+                <label for="input-enable-flag" class="col-sm-2 control-label">
+                    {:lang('启用')}
+                </label>
+                <div class="col-md-3 col-sm-5">
+                    <select class="form-control" name="enable_flag" id="input-enable-flag" style="width: 150px;">
+                        <foreach name="enable_flag_list" item="vo">
+                            <php>$ef_selected=isset($enable_flag)&&$enable_flag==$key?"selected":"";</php>
+                            <option value="{$key}" {$ef_selected}>{$vo}</option>
+                        </foreach>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-10">
+                <input type="hidden" name="id" value="{$id}"/>
+                <button type="submit" class="btn btn-primary js-ajax-submit">{:lang('SAVE')}</button>
+                <a class="btn btn-default" href="javascript:history.back(-1);">{:lang('BACK')}</a>
+            </div>
+        </div>
+    </form>
+</div>
+<script src="__STATIC__/js/admin.js"></script>
+</body>
+</html>

@@ -15,6 +15,9 @@ use think\Db;
 
 class AdminBaseController extends BaseController
 {
+    const DELETE_FLAG_TRUE = 1; //删除标识
+    const DELETE_FLAG_FALSE = 2; //未删除标识
+    const DEFAULT_PAGE_LIMIT = 10;//默认显示页数
 
     protected function initialize()
     {

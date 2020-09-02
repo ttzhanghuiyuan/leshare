@@ -27,6 +27,7 @@ use think\model\Collection as ModelCollection;
 use think\model\Relation;
 use think\model\relation\OneToOne;
 use think\Paginator;
+use think\Log;
 
 class Query
 {

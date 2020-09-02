@@ -10,15 +10,23 @@
 // +----------------------------------------------------------------------
 namespace cmf\controller;
 
+use app\admin\model\StudentModel;
 use cmf\model\UserTokenModel;
 use think\App;
 use think\Container;
+use think\db\exception\DataNotFoundException;
+use think\db\exception\ModelNotFoundException;
+use think\db\Where;
+use think\exception\DbException;
 use think\exception\HttpResponseException;
 use think\exception\ValidateException;
 use think\Response;
 
 class RestBaseController
 {
+    const DELETE_FLAG_TRUE = 1; //删除标识
+    const DELETE_FLAG_FALSE = 2; //未删除标识
+
     //token
     protected $token = '';
 
@@ -59,6 +67,9 @@ class RestBaseController
     /**
      * RestBaseController constructor.
      * @param App|null $app
+     * @throws DataNotFoundException
+     * @throws ModelNotFoundException
+     * @throws DbException
      */
     public function __construct(App $app = null)
     {
@@ -70,7 +81,10 @@ class RestBaseController
         $this->apiVersion = $this->request->header('XX-Api-Version');
 
         // 用户验证初始化
-        $this->_initUser();
+        // $this->_initUser();
+
+        //学生初始化
+        $this->_initStudent();
 
         // 控制器初始化
         $this->initialize();
@@ -88,6 +102,36 @@ class RestBaseController
     // 初始化
     protected function initialize()
     {
+    }
+
+    /**
+     * @desc:初始化学生登录信息
+     * @date:2020/8/30 下午5:14
+     * @return void :maxed
+     * @throws DataNotFoundException
+     * @throws ModelNotFoundException
+     * @throws DbException
+     * @author:abner<turing_zhy@163.com>
+     */
+    private function _initStudent()
+    {
+        $token = $this->request->header('Open-Id');
+
+        if (empty($token)) {
+            return;
+        }
+
+        $this->token = $token;
+
+        $student = StudentModel::alias('s')
+            ->field('s.id,s.open_id')
+            ->where('open_id', $token)
+            ->find();
+
+        if (!empty($student)) {
+            $this->user     = $student;
+            $this->userId   = $student['id'];
+        }
     }
 
     private function _initUser()

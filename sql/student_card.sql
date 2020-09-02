@@ -1,0 +1,23 @@
+create table ls_student_card(
+    id int primary key auto_increment comment 'ID',
+    student_id int default 0 comment '学生id',
+    card_id int default 0 comment '卡片id',
+    card_name varchar(255) comment '卡名称',
+    card_type tinyint default 0 comment '卡片类型',
+    study_num int default 0 comment '学习次数',
+    effect_start int default 0 comment '有效期开始',
+    effect_end int default 0 comment '有效期结束',
+    freeze_num int default 0 comment '冻结次数',
+    freeze_min_day int default 0 comment '冻结最少间隔天数',
+    week_num int default 0 comment '每周次数',
+    create_time int default 0 comment '创建日期',
+    update_time int default 0 comment '修改时间',
+    delete_flag tinyint default 2 comment '删除标识1删除2未删除',
+    enable_flag tinyint default 1 comment '启用标识1启用2未启用',
+    learned_num int default 0 comment '已学习次数',
+    last_learn_time int default 0 comment '上次学习时间',
+    freeze_to_day int default 0 comment '冻结到的日期',
+    had_freeze_num int default 0 comment '已冻结次数',
+    freeze_timestamp int default 0 comment '已冻结时间戳',
+    index `idx_student_id`(`student_id`)
+) ENGINE=InnoDB CHARSET=utf8 COMMENT='学生VIP卡关联表';

@@ -1,0 +1,1 @@
+apidoc -i ./api/student/controller -o ./public/apidoc

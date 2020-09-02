@@ -1,0 +1,79 @@
+<include file="public@header" />
+</head>
+<body>
+	<div class="wrap js-check-wrap">
+		<ul class="nav nav-tabs">
+			<li class="active"><a href="{:url('book_class/index')}">{:lang('约课记录')}</a></li>
+		</ul>
+        <form class="well form-inline margin-top-20" method="get" action="{:url('BookClass/index')}">
+			学生姓名:
+			<input type="text" class="form-control" name="name" style="width: 130px;" value="{:input('request.name/s','')}" placeholder="请输入{:lang('学生电话')}">
+			上课时间:
+			<input class="js-date"
+				   type="text"
+				   id="input-date"
+				   name="start_time"
+				   value="{:input('request.start_time/s','')}">
+			<input type="submit" class="btn btn-primary" value="搜索" />
+            <a class="btn btn-danger" href="{:url('BookClass/index')}">清空</a>
+        </form>
+		<table class="table table-hover table-bordered">
+			<thead>
+				<tr>
+					<th>ID</th>
+					<th>{:lang('学生姓名')}</th>
+					<th>{:lang('课程等级')}</th>
+					<th>{:lang('是否取消')}</th>
+					<th>{:lang('课程开始时间')}</th>
+					<th>{:lang('课程结束时间')}</th>
+					<th>{:lang('添加时间')}</th>
+					<th width="140">{:lang('ACTIONS')}</th>
+				</tr>
+			</thead>
+			<tbody>
+				<foreach name="book_class" item="vo">
+				<tr>
+					<td>{$vo.id}</td>
+					<td>{$vo.s_name}</td>
+					<td>{$vo.level_name}</td>
+					<td>
+						<if condition="$vo['cancel_flag'] eq 2">
+							{:lang('未取消')}
+							<else />
+							{:lang('取消')}
+						</if>
+					</td>
+					<td>
+						<if condition="$vo['class_start_time'] eq 0">
+							{:lang('-')}
+							<else />
+							{:date('Y-m-d H:i',$vo['class_start_time'])}
+						</if>
+					</td>
+					<td>
+						<if condition="$vo['class_end_time'] eq 0">
+							{:lang('-')}
+							<else />
+							{:date('Y-m-d H:i',$vo['class_end_time'])}
+						</if>
+					</td>
+					<td>
+						<if condition="$vo['create_time'] eq 0">
+							{:lang('-')}
+							<else />
+							{:date('Y-m-d H:i',$vo['create_time'])}
+						</if>
+					</td>
+					<td>
+						<a class="btn btn-xs btn-primary"
+						   href='{:url("book_class/edit",array("id"=>$vo["id"]))}'>{:lang('修改')}</a>
+					</td>
+				</tr>
+				</foreach>
+			</tbody>
+		</table>
+		<div class="pagination">{$page}</div>
+	</div>
+	<script src="__STATIC__/js/admin.js"></script>
+</body>
+</html>

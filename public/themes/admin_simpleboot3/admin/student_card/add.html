@@ -1,0 +1,46 @@
+<include file="public@header" />
+</head>
+<body>
+	<div class="wrap">
+		<ul class="nav nav-tabs">
+			<li><a href="{:url('student_card/index')}">{:lang('学生会员卡')}</a></li>
+			<li class="active"><a href="{:url('student_card/add')}">{:lang('绑卡')}</a></li>
+		</ul>
+		<form method="post" class="form-horizontal js-ajax-form margin-top-20" action="{:url('student_card/addpost')}">
+			<input value="{$student_id}" name="student_id"  type="hidden">
+			<!--学生信息展示-->
+			<div class="form-group">
+				<label for="input-student-name" class="col-sm-2 control-label">
+					<span class="form-required">*</span>
+					{:lang('学生姓名')}
+				</label>
+				<div class="col-md-6 col-sm-10">
+					<input value="{$student_info['name']}-{$student_info['id']}" type="text" class="form-control" id="input-student-name" name="name">
+				</div>
+			</div>
+
+			<!--卡片选择-->
+			<div class="form-group">
+				<label for="input-buy-purpose" class="col-sm-2 control-label">
+					<span class="form-required">*</span>
+					{:lang('选择卡片')}
+				</label>
+				<div class="col-md-6 col-sm-10">
+					<select id="input-buy-purpose" class="form-control" name="card_id" style="width: 150px;">
+						<foreach name="vip_card_list" item="vo">
+							<option value="{$vo['id']}">{$vo['card_name']}-{$vo['card_type_str']}</option>
+						</foreach>
+					</select>
+				</div>
+			</div>
+
+			<div class="form-group">
+				<div class="col-sm-offset-2 col-sm-10">
+					<button type="submit" class="btn btn-primary js-ajax-submit">{:lang('绑定')}</button>
+				</div>
+			</div>
+		</form>
+	</div>
+	<script src="__STATIC__/js/admin.js"></script>
+</body>
+</html>

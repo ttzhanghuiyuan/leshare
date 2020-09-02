@@ -1,0 +1,36 @@
+<include file="public@header" />
+</head>
+<body>
+	<div class="wrap">
+		<ul class="nav nav-tabs">
+			<li><a href="{:url('book_class/index')}">{:lang('约课记录')}</a></li>
+			<li class="active"><a>编辑约课</a></li>
+		</ul>
+		<form method="post" class="form-horizontal js-ajax-form margin-top-20" action="{:url('BookClass/editPost')}">
+			<div class="form-group">
+				<label for="input-cancel-flag" class="col-sm-2 control-label">
+					<span class="form-required">*</span>
+					{:lang('是否取消')}
+				</label>
+				<div class="col-md-6 col-sm-10">
+					<select class="form-control" name="cancel_flag" id="input-cancel-flag" style="width: 150px;">
+						<foreach name="cancel_flag_list" item="vo">
+							<php>$cf_selected=isset($cancel_flag)&&$cancel_flag==$key?"selected":"";</php>
+							<option value="{$key}" {$cf_selected}>{$vo}</option>
+						</foreach>
+					</select>
+				</div>
+			</div>
+
+			<div class="form-group">
+				<div class="col-sm-offset-2 col-sm-10">
+					<input type="hidden" name="id" value="{$id}" />
+					<button type="submit" class="btn btn-primary js-ajax-submit">{:lang('SAVE')}</button>
+					<a class="btn btn-default" href="javascript:history.back(-1);">{:lang('BACK')}</a>
+				</div>
+			</div>
+		</form>
+	</div>
+	<script src="__STATIC__/js/admin.js"></script>
+</body>
+</html>

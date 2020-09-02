@@ -1,0 +1,99 @@
+<include file="public@header" />
+</head>
+<body>
+	<div class="wrap">
+		<ul class="nav nav-tabs">
+			<li><a href="{:url('student/index')}">{:lang('学生管理')}</a></li>
+			<li class="active"><a href="{:url('student/add')}">{:lang('学生添加')}</a></li>
+		</ul>
+		<form method="post" class="form-horizontal js-ajax-form margin-top-20" action="{:url('student/addpost')}">
+			<!--学生姓名-->
+			<div class="form-group">
+				<label for="input-name" class="col-sm-2 control-label">
+					<span class="form-required">*</span>
+					{:lang('学生姓名')}
+				</label>
+				<div class="col-md-6 col-sm-10">
+					<input type="text" class="form-control" id="input-name" name="name">
+				</div>
+			</div>
+
+            <!--学生昵称-->
+			<div class="form-group">
+				<label for="input-nick" class="col-sm-2 control-label">
+					{:lang('学生昵称')}
+				</label>
+				<div class="col-md-6 col-sm-10">
+					<input type="text" class="form-control" id="input-nick" name="nick">
+				</div>
+			</div>
+
+			<!--年龄-->
+			<div class="form-group">
+				<label for="input-age" class="col-sm-2 control-label">
+					{:lang('年龄')}
+				</label>
+				<div class="col-md-6 col-sm-10">
+					<input type="text" class="form-control" id="input-age" name="age">
+				</div>
+			</div>
+
+            <!--家长姓名-->
+			<div class="form-group">
+				<label for="input-parent-name" class="col-sm-2 control-label">
+					{:lang('家长姓名')}
+				</label>
+				<div class="col-md-6 col-sm-10">
+					<input type="text" class="form-control" id="input-parent-name" name="parent_name">
+				</div>
+			</div>
+
+			<!--电话号码-->
+			<div class="form-group">
+				<label for="input-phone" class="col-sm-2 control-label">
+					<span class="form-required">*</span>
+					{:lang('电话号码')}
+				</label>
+				<div class="col-md-6 col-sm-10">
+					<input type="text" class="form-control" id="input-phone" name="phone">
+				</div>
+			</div>
+
+            <!--生日-->
+			<div class="form-group">
+				<label for="input-birthday" class="col-sm-2 control-label">
+					{:lang('生日')}
+				</label>
+				<div class="col-md-6 col-sm-10">
+					<input class="js-date"
+						   type="text"
+						   id="input-birthday"
+						   placeholder="2013-01-04"
+						   name="birthday">
+				</div>
+			</div>
+
+			<!--性别-->
+			<div class="form-group">
+				<label for="input-buy-purpose" class="col-sm-2 control-label">
+					{:lang('性别')}
+				</label>
+				<div class="col-md-6 col-sm-10">
+					<select id="input-buy-purpose" class="form-control" name="sex" style="width: 150px;">
+						<foreach name="sex" item="vo">
+							<option value="{$key}">{$vo}</option>
+						</foreach>
+					</select>
+				</div>
+			</div>
+
+			<div class="form-group">
+				<div class="col-sm-offset-2 col-sm-10">
+					<button type="submit" class="btn btn-primary js-ajax-submit">{:lang('ADD')}</button>
+				</div>
+			</div>
+		</form>
+	</div>
+	<script src="__STATIC__/js/admin.js"></script>
+</body>
+</html>

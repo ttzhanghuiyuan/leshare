@@ -1,0 +1,70 @@
+<include file="public@header" />
+</head>
+<body>
+	<div class="wrap">
+		<ul class="nav nav-tabs">
+			<li><a href="{:url('trail_class_user/index')}">{:lang('试听用户管理')}</a></li>
+			<li><a href="{:url('trail_class_user/add')}">{:lang('试听用户添加')}</a></li>
+			<li class="active"><a>编辑试听用户</a></li>
+		</ul>
+		<form method="post" class="form-horizontal js-ajax-form margin-top-20" action="{:url('TrailClassUser/editPost')}">
+			<div class="form-group">
+				<label for="input-phone" class="col-sm-2 control-label"><span class="form-required">*</span>{:lang('试听用户电话')}</label>
+				<div class="col-md-6 col-sm-10">
+					<input type="text" class="form-control" id="input-phone" name="phone" value="{$phone}">
+				</div>
+			</div>
+
+			<div class="form-group">
+				<label for="input-user-name" class="col-sm-2 control-label"><span class="form-required">*</span>{:lang('试听用户姓名')}</label>
+				<div class="col-md-6 col-sm-10">
+					<input type="text" class="form-control" id="input-user-name" name="user_name" value="{$user_name}">
+				</div>
+			</div>
+
+			<!--购买意向-->
+			<div class="form-group">
+				<label for="input-buy-purpose" class="col-sm-2 control-label"><span class="form-required">*</span>{:lang('购买意向')}</label>
+				<div class="col-md-6 col-sm-10">
+					<select id="input-buy-purpose" class="form-control" name="buy_purpose" style="width: 150px;">
+						<foreach name="buy_purpose_arr" item="vo">
+							<php>$type_selected=isset($buy_purpose)&&$buy_purpose==$key?"selected":"";</php>
+							<option value="{$key}" {$type_selected}>{$vo}</option>
+						</foreach>
+					</select>
+				</div>
+			</div>
+
+			<!--            渠道-->
+			<div class="form-group">
+				<label for="input-channel-id" class="col-sm-2 control-label"><span class="form-required">*</span>{:lang('渠道')}</label>
+				<div class="col-md-6 col-sm-10">
+					<select id="input-channel-id" class="form-control" name="channel_id" style="width: 150px;">
+						<foreach name="channel_list" item="vo">
+							<php>$channel_selected=isset($channel_id)&&$channel_id==$vo['id']?"selected":"";</php>
+							<option value="{$vo['id']}" {$channel_selected}>{$vo['channel_name']}</option>
+						</foreach>
+					</select>
+				</div>
+			</div>
+
+			<div class="form-group">
+				<label for="input-desc-str" class="col-sm-2 control-label"><span class="form-required">*</span>{:lang('描述')}</label>
+				<div class="col-md-6 col-sm-10">
+					<textarea class="form-control" id="input-desc-str" name="desc_str">{$desc_str}{$buy_purpose}{$channel_id}</textarea>
+				</div>
+			</div>
+
+
+			<div class="form-group">
+				<div class="col-sm-offset-2 col-sm-10">
+					<input type="hidden" name="id" value="{$id}" />
+					<button type="submit" class="btn btn-primary js-ajax-submit">{:lang('SAVE')}</button>
+					<a class="btn btn-default" href="javascript:history.back(-1);">{:lang('BACK')}</a>
+				</div>
+			</div>
+		</form>
+	</div>
+	<script src="__STATIC__/js/admin.js"></script>
+</body>
+</html>

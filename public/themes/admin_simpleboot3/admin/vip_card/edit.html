@@ -1,0 +1,103 @@
+<include file="public@header"/>
+</head>
+<body>
+<div class="wrap">
+    <ul class="nav nav-tabs">
+        <li><a href="{:url('vip_card/index')}">{:lang('会员卡管理')}</a></li>
+        <li><a href="{:url('vip_card/add')}">{:lang('会员卡添加')}</a></li>
+        <li class="active"><a>编辑会员卡</a></li>
+    </ul>
+    <form method="post" class="form-horizontal js-ajax-form margin-top-20" action="{:url('VipCard/editPost')}">
+        <!--会员卡名称-->
+        <div class="form-group">
+            <label for="input-card-name" class="col-sm-2 control-label">
+                <span class="form-required">*</span>
+                {:lang('会员卡名称')}
+            </label>
+            <div class="col-md-6 col-sm-10">
+                <input value="{$card_name}" type="text" class="form-control" id="input-card-name" name="card_name">
+            </div>
+        </div>
+
+        <!--会员卡类型-->
+        <div class="form-group">
+            <label for="input-card-type" class="col-sm-2 control-label">
+                <span class="form-required">*</span>
+                {:lang('会员卡类型')}
+            </label>
+            <div class="col-md-6 col-sm-10">
+                <select class="form-control" name="card_type" id="input-card-type" style="width: 150px;">
+                    <foreach name="card_type_list" item="vo">
+                        <php>$type_selected=isset($card_type)&&$card_type==$key?"selected":"";</php>
+                        <option value="{$key}" {$type_selected}>{$vo}</option>
+                    </foreach>
+                </select>
+            </div>
+        </div>
+
+        <!--学习次数-->
+        <div class="form-group">
+            <label for="input-study-num" class="col-sm-2 control-label">
+                {:lang('学习次数')}
+            </label>
+            <div class="col-md-6 col-sm-10">
+                <input value="{$study_num}" type="text" class="form-control" id="input-study-num" name="study_num">
+            </div>
+        </div>
+
+        <!--每周学习次数-->
+        <div class="form-group">
+            <label for="input-week-num" class="col-sm-2 control-label">
+                {:lang('每周学习次数')}
+            </label>
+            <div class="col-md-6 col-sm-10">
+                <input value="{$week_num}" type="text" class="form-control" id="input-week-num"
+                       name="week_num">
+            </div>
+        </div>
+
+        <!--有效期-->
+        <div class="form-group">
+            <label for="input-effect-day" class="col-sm-2 control-label">
+                {:lang('有效期(天)')}
+            </label>
+            <div class="col-md-6 col-sm-10">
+                <input value="{$effect_day}" type="text" class="form-control" id="input-effect-day"
+                       name="effect_day">
+            </div>
+        </div>
+
+        <!--默认冻结次数-->
+        <div class="form-group">
+            <label for="input-default-freeze-num" class="col-sm-2 control-label">
+                {:lang('默认冻结允许次数')}
+            </label>
+            <div class="col-md-6 col-sm-10">
+                <input value="{$default_freeze_num}" type="text" class="form-control" id="input-default-freeze-num"
+                       name="default_freeze_num">
+            </div>
+        </div>
+
+        <!--默认冻结最小天数-->
+        <div class="form-group">
+            <label for="input-default-freeze-min-day" class="col-sm-2 control-label">
+                {:lang('默认冻结最少天数')}
+            </label>
+            <div class="col-md-6 col-sm-10">
+                <input value="{$default_freeze_min_day}" type="text" class="form-control" id="input-default-freeze-min-day"
+                       name="default_freeze_min_day">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-10">
+                <input type="hidden" name="id" value="{$id}"/>
+                <button type="submit" class="btn btn-primary js-ajax-submit">{:lang('SAVE')}</button>
+                <a class="btn btn-default" href="javascript:history.back(-1);">{:lang('BACK')}</a>
+            </div>
+        </div>
+    </form>
+</div>
+<script src="__STATIC__/js/admin.js"></script>
+</body>
+</html>

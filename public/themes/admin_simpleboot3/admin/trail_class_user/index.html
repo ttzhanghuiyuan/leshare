@@ -1,0 +1,88 @@
+<include file="public@header" />
+</head>
+<body>
+	<div class="wrap js-check-wrap">
+		<ul class="nav nav-tabs">
+			<li class="active"><a href="{:url('trail_class_user/index')}">{:lang('试听用户管理')}</a></li>
+			<li><a href="{:url('trail_class_user/add')}">{:lang('试听用户添加')}</a></li>
+		</ul>
+        <form class="well form-inline margin-top-20" method="get" action="{:url('TrailClassUser/index')}">
+            电话:
+            <input type="text" class="form-control" name="phone" style="width: 130px;" value="{:input('request.phone/s','')}" placeholder="请输入{:lang('试听用户名称')}">
+			用户名:
+			<input type="text" class="form-control" name="user_name" style="width: 130px;" value="{:input('request.user_name/s','')}" placeholder="请输入{:lang('试听用户名称')}">
+			报名意向:
+			<select class="form-control" name="buy_purpose" id="input-purpose" style="width: 150px;">
+				<foreach name="buy_purpose" item="vo">
+					<php>$type_selected=isset($buy_purpose_selected)&&$buy_purpose_selected==$key?"selected":"";</php>
+					<option value="{$key}" {$type_selected}>{$vo}</option>
+				</foreach>
+			</select>
+			渠道:
+			<select class="form-control" name="channel_id" id="input-channel" style="width: 150px;">
+				<foreach name="channel_list" item="vo">
+					<php>$channel_selected=isset($channel_id_selected)&&$channel_id_selected==$vo['id']?"selected":"";</php>
+					<option value="{$vo['id']}" {$channel_selected}>{$vo['channel_name']}</option>
+				</foreach>
+			</select>
+			<input type="submit" class="btn btn-primary" value="搜索" />
+            <a class="btn btn-danger" href="{:url('TrailClassUser/index')}">清空</a>
+        </form>
+		<table class="table table-hover table-bordered">
+			<thead>
+				<tr>
+					<th width="50">ID</th>
+					<th>{:lang('试听用户电话')}</th>
+					<th>{:lang('试听用户名称')}</th>
+					<th>{:lang('购买意向')}</th>
+					<th>{:lang('渠道')}</th>
+					<th>{:lang('描述')}</th>
+					<th>{:lang('添加时间')}</th>
+					<th>{:lang('更新时间')}</th>
+					<th width="140">{:lang('ACTIONS')}</th>
+				</tr>
+			</thead>
+			<tbody>
+				<foreach name="channel" item="vo">
+				<tr>
+					<td>{$vo.id}</td>
+					<td>{$vo.phone}</td>
+					<td>{$vo.user_name}</td>
+					<td>
+                        <if condition="$vo['buy_purpose']">
+							{$buy_purpose[$vo['buy_purpose']]}
+							<else />
+							{:lang('-')}
+						</if>
+					</td>
+					<td>{$vo.channel_name}</td>
+					<td>{$vo.desc_str}</td>
+					<td>
+						<if condition="$vo['create_time'] eq 0">
+							{:lang('-')}
+							<else />
+							{:date('Y-m-d H:i:s',$vo['create_time'])}
+						</if>
+					</td>
+					<td>
+						<if condition="$vo['update_time'] eq 0">
+							{:lang('-')}
+							<else />
+							{:date('Y-m-d H:i:s',$vo['update_time'])}
+						</if>
+					</td>
+					<td>
+						<a class="btn btn-xs btn-primary"
+						   href='{:url("trail_class_user/edit",array("id"=>$vo["id"]))}'>{:lang('EDIT')}</a>
+						<a class="btn btn-xs btn-danger js-ajax-delete"
+						   href="{:url('trail_class_user/delete',array('id'=>$vo['id']))}">{:lang('DELETE')}</a>
+					</td>
+				</tr>
+				</foreach>
+			</tbody>
+		</table>
+		<div class="pagination">{$page}</div>
+	</div>
+	<script src="__STATIC__/js/admin.js"></script>
+</body>
+</html>

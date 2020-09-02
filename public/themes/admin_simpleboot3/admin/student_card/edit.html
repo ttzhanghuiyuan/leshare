@@ -1,0 +1,86 @@
+<include file="public@header"/>
+</head>
+<body>
+<div class="wrap">
+    <ul class="nav nav-tabs">
+        <li><a href="{:url('student_card/index')}">{:lang('学生会员卡')}</a></li>
+        <li class="active"><a>编辑学生会员卡</a></li>
+    </ul>
+    <form method="post" class="form-horizontal js-ajax-form margin-top-20" action="{:url('StudentCard/editPost')}">
+        <!--有效期开始-->
+        <div class="form-group">
+            <label for="input-effect-start" class="col-sm-2 control-label">
+                {:lang('有效期开始')}
+            </label>
+            <div class="col-md-6 col-sm-10">
+                <input value="{$effect_start}"
+                       class="js-date"
+                       type="text"
+                       id="input-effect-start"
+                       placeholder="2013-01-04"
+                       name="effect_start">
+            </div>
+        </div>
+
+        <!--有效期结束-->
+        <div class="form-group">
+            <label for="input-effect-end" class="col-sm-2 control-label">
+                {:lang('有效期结束')}
+            </label>
+            <div class="col-md-6 col-sm-10">
+                <input value="{$effect_end}"
+                       class="js-date"
+                       type="text"
+                       id="input-effect-end"
+                       placeholder="2013-01-04"
+                       name="effect_end">
+            </div>
+        </div>
+
+        <!--可冻结次数-->
+        <div class="form-group">
+            <label for="input-freeze-num" class="col-sm-2 control-label">
+                {:lang('可冻结次数')}
+            </label>
+            <div class="col-md-6 col-sm-10">
+                <input value="{$freeze_num}" type="text" class="form-control" id="input-freeze-num" name="freeze_num">
+            </div>
+        </div>
+
+        <!--冻结间隔天数-->
+        <div class="form-group">
+            <label for="input-freeze-min-day" class="col-sm-2 control-label">
+                {:lang('冻结间隔天数')}
+            </label>
+            <div class="col-md-6 col-sm-10">
+                <input value="{$freeze_min_day}" type="text" class="form-control" id="input-freeze-min-day" name="freeze_min_day">
+            </div>
+        </div>
+
+        <!--是否生效-->
+        <div class="form-group">
+            <label class="col-sm-2 control-label">
+                {:lang('是否生效')}
+            </label>
+            <div class="col-md-6 col-sm-10">
+                <select class="form-control" name="enable_flag" id="input-enable-flag" style="width: 150px;">
+                    <foreach name="enable_flag_list" item="vo">
+                        <php>$flag_selected=isset($enable_flag)&&$enable_flag==$key?"selected":"";</php>
+                        <option value="{$key}" {$flag_selected}>{$vo}</option>
+                    </foreach>
+                </select>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-10">
+                <input type="hidden" name="id" value="{$id}"/>
+                <button type="submit" class="btn btn-primary js-ajax-submit">{:lang('SAVE')}</button>
+                <a class="btn btn-default" href="javascript:history.back(-1);">{:lang('BACK')}</a>
+            </div>
+        </div>
+    </form>
+</div>
+<script src="__STATIC__/js/admin.js"></script>
+</body>
+</html>
