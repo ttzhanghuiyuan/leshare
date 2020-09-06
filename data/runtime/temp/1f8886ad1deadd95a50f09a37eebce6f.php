@@ -1,4 +1,4 @@
-<?php /*a:2:{s:73:"/home/abner/leshare/public/themes/admin_simpleboot3/admin/main/index.html";i:1596947788;s:70:"/home/abner/leshare/public/themes/admin_simpleboot3/public/header.html";i:1598770981;}*/ ?>
+<?php /*a:2:{s:73:"/home/abner/leshare/public/themes/admin_simpleboot3/admin/main/index.html";i:1599436415;s:70:"/home/abner/leshare/public/themes/admin_simpleboot3/public/header.html";i:1598770981;}*/ ?>
 <?php 
     if (!function_exists('_get_system_widget')) {
         function _get_system_widget($name){
@@ -12,7 +12,7 @@
                     <li>
                         <em>官网</em> <span><a href="http://www.thinkcmf.com" target="_blank">www.thinkcmf.com</a></span>
                     </li>
-                    <li><em>QQ 群</em> <span>100828313,316669417</span></li>
+                    <li><em>QQ 群</em> <span>100828314,316669417</span></li>
                     <li><em>联系邮箱</em> <span>catman@thinkcmf.com</span></li>
                 </ul>
             </div>
@@ -370,8 +370,21 @@
         });
     }
 
+    //自定义通知
+    $(function () {
+        var tpl      = '<li><em class="title"></em><span class="content"></span></li>';
+        var $notices = $("#thinkcmf-notices");
+        $notices.empty();
+        var $tpl = $(tpl);
+        $('#thinkcmf-notices-grid').show();
+        $(".title", $tpl).html('你好！');
+        $(".content", $tpl).html('欢迎登录!');
+        $notices.append($tpl);
+    });
+
+
     //获取官方通知
-    $.getJSON("//www.thinkcmf.com/service/sms_jsonp.php?lang=<?php echo $lang_set; ?>&v=<?php echo $thinkcmf_version; ?>&callback=?",
+    /*$.getJSON("//www.thinkcmf.com/service/sms_jsonp.php?lang=<?php echo $lang_set; ?>&v=<?php echo $thinkcmf_version; ?>&callback=?",
         function (data) {
             var tpl      = '<li><em class="title"></em><span class="content"></span></li>';
             var $notices = $("#thinkcmf-notices");
@@ -388,7 +401,7 @@
                 $notices.append("<li>^_^,<?php echo lang('NO_NOTICE'); ?>~~</li>");
             }
 
-        });
+        });*/
 </script>
 <?php 
     \think\facade\Hook::listen('admin_before_body_end',null,false);
