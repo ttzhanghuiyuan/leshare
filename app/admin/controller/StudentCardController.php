@@ -116,6 +116,37 @@ class StudentCardController extends AdminBaseController
         return $this->fetch();
     }
 
+    /**
+     * @desc: 绑卡
+     * @author:yuan<turing_zhy@163.com>
+     * @date:2020/9/14 下午2:54
+     */
+    public function add()
+    {
+        $content = hook_one('admin_student_card_add_view');
+
+        if (!empty($content)) {
+            return $content;
+        }
+
+        $id = $this->request->param('id', 0, 'intval');
+        $roles = DB::name('role')->where('status', 1)->order("id DESC")->select();
+        $this->assign("roles", $roles);
+        $role_ids = DB::name('RoleUser')->where("user_id", $id)->column("role_id");
+        $this->assign("role_ids", $role_ids);
+
+        //获取会员卡
+        $studentInfo = Db::name('student')->where('id',$id)->field('id,name')->find();
+
+        //获取所有会员卡
+        $vipCardList = $this->getVipCardForSelect();
+
+        $this->assign("vip_card_list", $vipCardList);
+        $this->assign("student_info", $studentInfo);
+        $this->assign("student_id", $id);
+        return $this->fetch();
+    }
+
 
     /**
      * @desc: 学生卡片添加提交
