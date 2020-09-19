@@ -240,6 +240,15 @@
         }
       ]
     },
+    "error": {
+      "examples": [
+        {
+          "title": "Error-Response:",
+          "content": "{\n  \"code\": 0,\n  \"msg\": \"code been used, hints: [ req_id: UJjeEVDNRa-jd0LoA ]\",\n  \"data\": \"\"\n}",
+          "type": "json"
+        }
+      ]
+    },
     "filename": "api/student/controller/StudentController.php",
     "groupTitle": "NEED",
     "name": "PostHttpsWwwLoshareClubApiPhpStudentStudentGetopenid"

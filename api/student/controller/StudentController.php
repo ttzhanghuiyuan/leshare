@@ -710,6 +710,12 @@ class StudentController extends RestBaseController
      *         "openid": "oOj735eFPwiNx9hRoIhgZDT12Mds"
      *       }
      *     }
+     * @apiErrorExample {json} Error-Response:
+     *    {
+     *      "code": 0,
+     *      "msg": "code been used, hints: [ req_id: UJjeEVDNRa-jd0LoA ]",
+     *      "data": ""
+     *    }
      */
     public function getOpenId()
     {
@@ -730,8 +736,12 @@ class StudentController extends RestBaseController
         }
         curl_close($ch);
 
-        $contentArr = json_decode($content);
+        $contentArr = json_decode($content,true);
 
-        $this->success('成功', $contentArr);
+        if(isset($contentArr['errcode'])){
+            $this->error($contentArr['errmsg']);
+        }else{
+            $this->success('成功', $contentArr);
+        }
     }
 }
