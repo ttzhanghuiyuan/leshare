@@ -1,7 +1,7 @@
 [
   {
     "type": "POST",
-    "url": "http://admin.loshare.club/api.php/student/student/bookClass",
+    "url": "https://www.loshare.club/api.php/student/student/bookClass",
     "title": "5-约课",
     "version": "1.0.0",
     "group": "NEED",
@@ -62,11 +62,11 @@
     },
     "filename": "api/student/controller/StudentController.php",
     "groupTitle": "NEED",
-    "name": "PostHttpAdminLoshareClubApiPhpStudentStudentBookclass"
+    "name": "PostHttpsWwwLoshareClubApiPhpStudentStudentBookclass"
   },
   {
     "type": "POST",
-    "url": "http://admin.loshare.club/api.php/student/student/freezeClass",
+    "url": "https://www.loshare.club/api.php/student/student/freezeClass",
     "title": "6-冻结课程",
     "version": "1.0.0",
     "group": "NEED",
@@ -127,11 +127,11 @@
     },
     "filename": "api/student/controller/StudentController.php",
     "groupTitle": "NEED",
-    "name": "PostHttpAdminLoshareClubApiPhpStudentStudentFreezeclass"
+    "name": "PostHttpsWwwLoshareClubApiPhpStudentStudentFreezeclass"
   },
   {
     "type": "POST",
-    "url": "http://admin.loshare.club/api.php/student/student/getClassLevel",
+    "url": "https://www.loshare.club/api.php/student/student/getClassLevel",
     "title": "2-获取课程等级",
     "version": "1.0.0",
     "group": "NEED",
@@ -171,11 +171,82 @@
     },
     "filename": "api/student/controller/StudentController.php",
     "groupTitle": "NEED",
-    "name": "PostHttpAdminLoshareClubApiPhpStudentStudentGetclasslevel"
+    "name": "PostHttpsWwwLoshareClubApiPhpStudentStudentGetclasslevel"
   },
   {
     "type": "POST",
-    "url": "http://admin.loshare.club/api.php/student/student/getTodayClassInfo",
+    "url": "https://www.loshare.club/api.php/student/student/getOpenId",
+    "title": "7-获取openid",
+    "version": "1.0.0",
+    "group": "NEED",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "code",
+            "description": "<p>前端login时获取的code</p>"
+          }
+        ]
+      }
+    },
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "Object",
+            "optional": false,
+            "field": "code",
+            "description": "<p>返回码</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "Object",
+            "optional": false,
+            "field": "msg",
+            "description": "<p>中文解释</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "String[]",
+            "optional": false,
+            "field": "data",
+            "description": "<p>返回数据</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "data.session_key",
+            "description": "<p>会话密钥</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "data.openid",
+            "description": "<p>用户唯一标识</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Success-Response:",
+          "content": "HTTP/1.1 200 OK\n{\n  \"code\": 1,\n  \"msg\": \"成功\",\n  \"data\": {\n    \"session_key\": \"/Lvkv4tifgACOOfPSeksGw==\",\n    \"openid\": \"oOj735eFPwiNx9hRoIhgZDT12Mds\"\n  }\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "filename": "api/student/controller/StudentController.php",
+    "groupTitle": "NEED",
+    "name": "PostHttpsWwwLoshareClubApiPhpStudentStudentGetopenid"
+  },
+  {
+    "type": "POST",
+    "url": "https://www.loshare.club/api.php/student/student/getTodayClassInfo",
     "title": "3-获取今日课表",
     "version": "1.0.0",
     "group": "NEED",
@@ -270,11 +341,11 @@
     },
     "filename": "api/student/controller/StudentController.php",
     "groupTitle": "NEED",
-    "name": "PostHttpAdminLoshareClubApiPhpStudentStudentGettodayclassinfo"
+    "name": "PostHttpsWwwLoshareClubApiPhpStudentStudentGettodayclassinfo"
   },
   {
     "type": "POST",
-    "url": "http://admin.loshare.club/api.php/student/student/getUserInfo",
+    "url": "https://www.loshare.club/api.php/student/student/getUserInfo",
     "title": "4-获取用户剩余课时",
     "version": "1.0.0",
     "group": "NEED",
@@ -322,11 +393,11 @@
     },
     "filename": "api/student/controller/StudentController.php",
     "groupTitle": "NEED",
-    "name": "PostHttpAdminLoshareClubApiPhpStudentStudentGetuserinfo"
+    "name": "PostHttpsWwwLoshareClubApiPhpStudentStudentGetuserinfo"
   },
   {
     "type": "POST",
-    "url": "http://admin.loshare.club/api.php/student/student/matchUser",
+    "url": "https://www.loshare.club/api.php/student/student/matchUser",
     "title": "1-用户首次登录验证绑定",
     "version": "1.0.0",
     "group": "NEED",
@@ -408,6 +479,6 @@
     },
     "filename": "api/student/controller/StudentController.php",
     "groupTitle": "NEED",
-    "name": "PostHttpAdminLoshareClubApiPhpStudentStudentMatchuser"
+    "name": "PostHttpsWwwLoshareClubApiPhpStudentStudentMatchuser"
   }
 ]

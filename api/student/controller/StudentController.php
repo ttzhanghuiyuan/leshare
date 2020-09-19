@@ -27,8 +27,11 @@ use think\exception\ThrowableError;
 
 class StudentController extends RestBaseController
 {
+    const APPID='wx03df51c21dc4151c';
+    const APP_SECRET='0bb0a23969c302ad1bf789403d47b675';
+
     /**
-     * @api {POST} http://admin.loshare.club/api.php/student/student/matchUser 1-用户首次登录验证绑定
+     * @api {POST} https://www.loshare.club/api.php/student/student/matchUser 1-用户首次登录验证绑定
      * @apiVersion 1.0.0
      * @apiGroup NEED
      * @apiDescription 注意绑定用户后，需要在请求头加上Open-Id --小程序open_id，确认用户身份
@@ -86,7 +89,7 @@ class StudentController extends RestBaseController
 
 
     /**
-     * @api {POST} http://admin.loshare.club/api.php/student/student/getClassLevel 2-获取课程等级
+     * @api {POST} https://www.loshare.club/api.php/student/student/getClassLevel 2-获取课程等级
      * @apiVersion 1.0.0
      * @apiGroup NEED
      *
@@ -127,7 +130,7 @@ class StudentController extends RestBaseController
     }
 
     /**
-     * @api {POST} http://admin.loshare.club/api.php/student/student/getTodayClassInfo 3-获取今日课表
+     * @api {POST} https://www.loshare.club/api.php/student/student/getTodayClassInfo 3-获取今日课表
      * @apiVersion 1.0.0
      * @apiGroup NEED
      *
@@ -225,7 +228,7 @@ class StudentController extends RestBaseController
     }
 
     /**
-     * @api {POST} http://admin.loshare.club/api.php/student/student/getUserInfo 4-获取用户剩余课时
+     * @api {POST} https://www.loshare.club/api.php/student/student/getUserInfo 4-获取用户剩余课时
      * @apiVersion 1.0.0
      * @apiGroup NEED
      *
@@ -267,7 +270,7 @@ class StudentController extends RestBaseController
     }
 
     /**
-     * @api {POST} http://admin.loshare.club/api.php/student/student/bookClass 5-约课
+     * @api {POST} https://www.loshare.club/api.php/student/student/bookClass 5-约课
      * @apiVersion 1.0.0
      * @apiGroup NEED
      *
@@ -527,7 +530,7 @@ class StudentController extends RestBaseController
     }
 
     /**
-     * @api {POST} http://admin.loshare.club/api.php/student/student/freezeClass 6-冻结课程
+     * @api {POST} https://www.loshare.club/api.php/student/student/freezeClass 6-冻结课程
      * @apiVersion 1.0.0
      * @apiGroup NEED
      *
@@ -682,5 +685,53 @@ class StudentController extends RestBaseController
         }
 
         return true;
+    }
+
+    /**
+     * @api {POST} https://www.loshare.club/api.php/student/student/getOpenId 7-获取openid
+     * @apiVersion 1.0.0
+     * @apiGroup NEED
+     *
+     * @apiParam {String} code 前端login时获取的code
+     *
+     * @apiSuccess {Object} code 返回码
+     * @apiSuccess {Object} msg  中文解释
+     * @apiSuccess {String[]} data  返回数据
+     * @apiSuccess {String} data.session_key  会话密钥
+     * @apiSuccess {String} data.openid  用户唯一标识
+     *
+     * @apiSuccessExample {json} Success-Response:
+     *     HTTP/1.1 200 OK
+     *     {
+     *       "code": 1,
+     *       "msg": "成功",
+     *       "data": {
+     *         "session_key": "/Lvkv4tifgACOOfPSeksGw==",
+     *         "openid": "oOj735eFPwiNx9hRoIhgZDT12Mds"
+     *       }
+     *     }
+     */
+    public function getOpenId()
+    {
+        $code = trim($this->request->param('code'));
+        $secret = self::APP_SECRET;
+        $appid = self::APPID;
+        $url = "https://api.weixin.qq.com/sns/jscode2session?appid=".$appid."&secret=".$secret."&js_code=".$code."&grant_type=authorization_code";
+
+        $ch = curl_init();
+        curl_setopt($ch,CURLOPT_URL,$url);
+        curl_setopt($ch,CURLOPT_RETURNTRANSFER,1);
+        curl_setopt($ch,CURLOPT_TIMEOUT,30);
+
+        $content = curl_exec($ch);
+        $status = (int)curl_getinfo($ch,CURLINFO_HTTP_CODE);
+        if ($status == 404) {
+            return $status;
+        }
+        curl_close($ch);
+
+        $contentArr = json_decode($content);
+
+        $this->success('成功', $contentArr);
     }
 }
