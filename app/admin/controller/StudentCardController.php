@@ -278,7 +278,10 @@ class StudentCardController extends AdminBaseController
 
         $del_flag = Db::name('student_card')
             ->where('id', $id)
-            ->update(['delete_flag' => self::DELETE_FLAG_TRUE]);
+            ->update([
+                'delete_flag' => self::DELETE_FLAG_TRUE,
+                'enable_flag' => StudentCardModel::UN_ENABLE,
+            ]);
 
         if ($del_flag !== false) {
             $this->success("删除成功！");

@@ -480,6 +480,7 @@ class StudentController extends RestBaseController
         //检查学生
         $studentInfo = Db::name('student')
             ->where('id', $studentId)
+            ->where('enable_flag', StudentCardModel::ENABLE)
             ->field('id,delete_flag')
             ->find();
 
@@ -497,7 +498,6 @@ class StudentController extends RestBaseController
             ->find();
         if (!$cardInfo) exception('未找到会员卡信息');
         if ($cardInfo['delete_flag'] == self::DELETE_FLAG_TRUE) exception('会员卡被删除，请联系学校!');
-        if ($cardInfo['enable_flag'] == StudentCardModel::UN_ENABLE) exception('会员卡被无效,请联系学校!');
         if ($cardInfo['freeze_to_day'] > $now) exception('还未到解冻时间');
         if ($cardInfo['learned_num'] >= $cardInfo['study_num']) exception('会员卡已消费结束,请及时充值!');
         if ($cardInfo['effect_start'] > $now) exception('会员卡还未到开始使用时间!');;
