@@ -445,9 +445,9 @@ class StudentController extends RestBaseController
         if ($csInfo['delete_flag'] == self::DELETE_FLAG_TRUE) exception('课表已被删除!');
         if ($csInfo['enable_flag'] != ClassScheduleModel::CLASS_ENABLE) exception('课表已无效,请刷新页面!');
         $start_minute = $csInfo['start_minute'] ? $csInfo['start_minute'] : '00';
-        $classStart = "$classDate {$csInfo['start_hour']}:$start_minute:00";
+        $classStart = "$classDate {$csInfo['start_hour']}:$start_minute";
         $timeNow = time();
-        if ($classStart >= $timeNow) exception('已经开课,不可预约!');
+        if ($classStart <= $timeNow) exception('已经开课,不可预约!');
 
         //获取当天预约情况
         $classDate = strtotime($classDate);
