@@ -1,4 +1,4 @@
-<?php /*a:2:{s:81:"/home/abner/leshare/public/themes/admin_simpleboot3/admin/student_card/index.html";i:1598968380;s:70:"/home/abner/leshare/public/themes/admin_simpleboot3/public/header.html";i:1598770981;}*/ ?>
+<?php /*a:2:{s:81:"/home/abner/leshare/public/themes/admin_simpleboot3/admin/student_card/index.html";i:1600585118;s:70:"/home/abner/leshare/public/themes/admin_simpleboot3/public/header.html";i:1598770981;}*/ ?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -94,6 +94,7 @@
 					<th><?php echo lang('冻结最少天数'); ?></th>
 					<th><?php echo lang('每周次数'); ?></th>
 					<th><?php echo lang('学习次数'); ?></th>
+					<th><?php echo lang('剩余次数'); ?></th>
 					<th><?php echo lang('上次学习时间'); ?></th>
 					<th><?php echo lang('是否启用'); ?></th>
 					<th><?php echo lang('创建日期'); ?></th>
@@ -125,6 +126,7 @@
 					<td><?php echo $vo['freeze_min_day']; ?>天</td>
 					<td><?php echo $vo['week_num']; ?></td>
 					<td><?php echo $vo['learned_num']; ?></td>
+					<td><?php echo $vo['study_num']-$vo['learned_num']; ?></td>
 					<td>
 						<?php if($vo['last_learn_time'] == 0): ?>
 							<?php echo lang('-'); else: ?>

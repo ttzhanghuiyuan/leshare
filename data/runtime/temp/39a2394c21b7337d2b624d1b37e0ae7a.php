@@ -1,4 +1,4 @@
-<?php /*a:2:{s:79:"/home/abner/leshare/public/themes/admin_simpleboot3/admin/book_class/index.html";i:1599005992;s:70:"/home/abner/leshare/public/themes/admin_simpleboot3/public/header.html";i:1598770981;}*/ ?>
+<?php /*a:2:{s:79:"/home/abner/leshare/public/themes/admin_simpleboot3/admin/book_class/index.html";i:1600583497;s:70:"/home/abner/leshare/public/themes/admin_simpleboot3/public/header.html";i:1598770981;}*/ ?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -70,6 +70,12 @@
 				   id="input-date"
 				   name="start_time"
 				   value="<?php echo input('request.start_time/s',''); ?>">
+			课表:
+			<select class="form-control" name="schedule_id" id="input-schedule" style="width: 150px;">
+				<?php if(is_array($schedule) || $schedule instanceof \think\Collection || $schedule instanceof \think\Paginator): if( count($schedule)==0 ) : echo "" ;else: foreach($schedule as $key=>$vo): $schedule_selected=isset($schedule_id_selected)&&$schedule_id_selected==$key?"selected":""; ?>
+					<option value="<?php echo $key; ?>" <?php echo $schedule_selected; ?>><?php echo $vo['name']; ?></option>
+				<?php endforeach; endif; else: echo "" ;endif; ?>
+			</select>
 			<input type="submit" class="btn btn-primary" value="搜索" />
             <a class="btn btn-danger" href="<?php echo url('BookClass/index'); ?>">清空</a>
         </form>

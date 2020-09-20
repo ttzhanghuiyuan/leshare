@@ -40,6 +40,7 @@
 					<th>{:lang('冻结最少天数')}</th>
 					<th>{:lang('每周次数')}</th>
 					<th>{:lang('学习次数')}</th>
+					<th>{:lang('剩余次数')}</th>
 					<th>{:lang('上次学习时间')}</th>
 					<th>{:lang('是否启用')}</th>
 					<th>{:lang('创建日期')}</th>
@@ -75,6 +76,7 @@
 					<td>{$vo.freeze_min_day}天</td>
 					<td>{$vo.week_num}</td>
 					<td>{$vo.learned_num}</td>
+					<td>{$vo.study_num-$vo.learned_num}</td>
 					<td>
 						<if condition="$vo['last_learn_time'] eq 0">
 							{:lang('-')}

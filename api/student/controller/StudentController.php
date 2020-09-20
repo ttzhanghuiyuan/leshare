@@ -478,6 +478,15 @@ class StudentController extends RestBaseController
      */
     private function checkStudent($studentId, $csId, $classDate)
     {
+        $now = time();
+        $monday = strtotime('this week monday', $now);
+        $sunday = strtotime('this week sunday',$now);
+        $classDate = strtotime($classDate);
+        //检查约课时间在本周
+        if($classDate < $monday || $classDate > $sunday){
+            exception('只能预约本周课程!');
+        }
+
         //检查学生
         $studentInfo = Db::name('student')
             ->where('id', $studentId)
@@ -488,7 +497,6 @@ class StudentController extends RestBaseController
         if ($studentInfo['delete_flag'] == self::DELETE_FLAG_TRUE) exception('学生被删除,请联系学校!');
 
         //检查会员卡信息
-        $now = time();
         $cardInfo = Db::name('student_card')
             ->where('student_id', $studentId)
             ->where('enable_flag', StudentCardModel::ENABLE)
@@ -505,7 +513,6 @@ class StudentController extends RestBaseController
         if ($cardInfo['effect_end'] < $now) exception('会员卡已过期!');
 
         //检查该学生约课情况
-        $classDate = strtotime($classDate);
         $classDateEnd = strtotime('+ 1 day', $classDate);
         $bookFlag = Db::name('book_class')
             ->where('student_id', $studentId)
