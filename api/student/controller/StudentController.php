@@ -599,6 +599,9 @@ class StudentController extends RestBaseController
 
         if (!$cardInfo) exception('未找到会员卡信息!');
 
+        trace('abner_test'.$startDate,'info');
+        trace('abner_test'.$endDate,'info');
+
         $startDate = strtotime($startDate);
         $endDate = strtotime($endDate);
         $timeNow = time();
