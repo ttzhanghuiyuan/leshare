@@ -480,7 +480,6 @@ class StudentController extends RestBaseController
         //检查学生
         $studentInfo = Db::name('student')
             ->where('id', $studentId)
-            ->where('enable_flag', StudentCardModel::ENABLE)
             ->field('id,delete_flag')
             ->find();
 
@@ -491,6 +490,7 @@ class StudentController extends RestBaseController
         $now = time();
         $cardInfo = Db::name('student_card')
             ->where('student_id', $studentId)
+            ->where('enable_flag', StudentCardModel::ENABLE)
             ->field(
                 'delete_flag,enable_flag,learned_num,study_num,freeze_to_day,effect_start,effect_end,' .
                 'card_type,week_num'
