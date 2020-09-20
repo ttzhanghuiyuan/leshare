@@ -24,6 +24,7 @@ use think\exception\DbException;
 use think\exception\ErrorException;
 use think\exception\PDOException;
 use think\exception\ThrowableError;
+use think\Log;
 
 class StudentController extends RestBaseController
 {
@@ -557,6 +558,8 @@ class StudentController extends RestBaseController
         $studentId = $this->getUserId();
         $startDate = trim($this->request->param('start_date'));
         $endDate = trim($this->request->param('end_date'));
+        trace('abner_test'.$startDate,'info');
+        trace('abner_test'.$endDate,'info');
         //检测冻结
         try {
             $this->checkFreezeStatus($studentId, $startDate, $endDate);
@@ -598,9 +601,6 @@ class StudentController extends RestBaseController
             ->find();
 
         if (!$cardInfo) exception('未找到会员卡信息!');
-
-        trace('abner_test'.$startDate,'info');
-        trace('abner_test'.$endDate,'info');
 
         $startDate = strtotime($startDate);
         $endDate = strtotime($endDate);
