@@ -15,4 +15,6 @@ class VipCardModel extends Model
 
     //时间卡
     const TIME_VIP_CARD = 2;
+    //次数卡
+    const TIMES_VIP_CARD = 1;
 }

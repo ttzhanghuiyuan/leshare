@@ -205,7 +205,7 @@ class StudentController extends RestBaseController
         $classList = array_merge($regularClass, $temporaryClass);
 
         //数组排序
-        array_multisort(array_column($classList,'start_hour'),SORT_DESC,$classList);
+        array_multisort(array_column($classList,'start_hour'),SORT_ASC,$classList);
 
         //获取今天已报名数量
         if ($classList) {
@@ -264,14 +264,21 @@ class StudentController extends RestBaseController
             ->where('student_id', $studentId)
             ->where('delete_flag', self::DELETE_FLAG_FALSE)
             ->where('enable_flag', StudentCardModel::ENABLE)
-            ->field('id,study_num,learned_num')
+            ->field('id,study_num,learned_num,card_type,effect_start,effect_end')
             ->find();
 
         $leftNum = $cardInfo['study_num'] - $cardInfo['learned_num'];
         $leftNum = $leftNum > 0 ? $leftNum : 0;
 
+        //次数卡显示剩余天数
+        if($cardInfo['card_type'] == VipCardModel::TIMES_VIP_CARD){
+            $leftNum = ceil(($cardInfo['effect_end'] - $cardInfo['effect_start'])/(3600*24));
+            $leftNum = $leftNum > 0 ?$leftNum:0;
+        }
+
         $this->success('成功', [
             'left_num' => $leftNum,
+            'card_type' => $cardInfo['card_type'],
         ]);
     }
 
@@ -548,7 +555,7 @@ class StudentController extends RestBaseController
      * @apiGroup NEED
      *
      * @apiParam {String} start_date 冻结开始eg:2020-09-02
-     * @apiParam {String} class_date 冻结结束eg:2020-09-31
+     * @apiParam {String} end_date 冻结结束eg:2020-09-31
      *
      * @apiDescription 注意绑定用户后，需要在请求头加上Open-Id --小程序open_id，确认用户身份(本接口需要)
      *

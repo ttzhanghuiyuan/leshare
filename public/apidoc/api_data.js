@@ -84,7 +84,7 @@ define({ "api": [
             "group": "Parameter",
             "type": "String",
             "optional": false,
-            "field": "class_date",
+            "field": "end_date",
             "description": "<p>冻结结束eg:2020-09-31</p>"
           }
         ]

@@ -21,7 +21,7 @@ class VipCardValidate extends Validate
         'effect_day' => 'between:1,730',
         'default_freeze_num' => 'between:1,100',
         'default_freeze_min_day' => 'between:1,365',
-        'week_num' => 'between:1,7',
+        'week_num' => 'between:1,20',
         'delete_flag' => 'in:0,1,2',
     ];
     protected $message = [
