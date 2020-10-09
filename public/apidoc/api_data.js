@@ -389,13 +389,20 @@ define({ "api": [
             "optional": false,
             "field": "data.left_num",
             "description": "<p>剩余课时</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "Int",
+            "optional": false,
+            "field": "data.card_type",
+            "description": "<p>卡片类型 1次数卡 2时间卡</p>"
           }
         ]
       },
       "examples": [
         {
           "title": "Success-Response:",
-          "content": "HTTP/1.1 200 OK\n{\n    \"code\": 1,\n    \"msg\": \"成功\",\n    \"data\": {\n        \"left_num\": 16\n    }\n}",
+          "content": "HTTP/1.1 200 OK\n{\n    \"code\": 1,\n    \"msg\": \"成功\",\n    \"data\": {\n        \"left_num\": 16,\n        \"card_type\": 1,\n    }\n}",
           "type": "json"
         }
       ]

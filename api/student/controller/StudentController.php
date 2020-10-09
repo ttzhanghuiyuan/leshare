@@ -245,6 +245,7 @@ class StudentController extends RestBaseController
      * @apiSuccess {Object} msg  中文解释
      * @apiSuccess {String[]} data  返回数据
      * @apiSuccess {Int} data.left_num  剩余课时
+     * @apiSuccess {Int} data.card_type  卡片类型 1次数卡 2时间卡
      *
      * @apiSuccessExample {json} Success-Response:
      *     HTTP/1.1 200 OK
@@ -252,7 +253,8 @@ class StudentController extends RestBaseController
      *         "code": 1,
      *         "msg": "成功",
      *         "data": {
-     *             "left_num": 16
+     *             "left_num": 16,
+     *             "card_type": 1,
      *         }
      *     }
      */
