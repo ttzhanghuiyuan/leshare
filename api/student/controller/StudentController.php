@@ -204,6 +204,9 @@ class StudentController extends RestBaseController
         //合并数组
         $classList = array_merge($regularClass, $temporaryClass);
 
+        //数组排序
+        array_multisort(array_column($classList,'start_hour'),SORT_DESC,$classList);
+
         //获取今天已报名数量
         if ($classList) {
             $classIds = array_column($classList, 'id');
@@ -220,6 +223,8 @@ class StudentController extends RestBaseController
             $classId = $item['id'];
             $bookNum = $bookList[$classId] ?? 0;
             $studyNum = $item['study_num'];
+            $item['start_minute'] = $item['start_minute']?$item['start_minute']:'00';
+            $item['end_minute'] = $item['end_minute']?$item['end_minute']:'00';
             $item['left_num'] = ($studyNum - $bookNum) > 0 ? ($studyNum - $bookNum) : 0;
         }
 

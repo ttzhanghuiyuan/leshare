@@ -41,7 +41,7 @@ class ClassScheduleController extends AdminBaseController
 
         $classSchedule = Db::name('class_schedule')
             ->alias('sc')
-            ->join('class_level cl', 'sc.level_id = cl.id')
+            ->join('class_level cl', 'sc.level_id = cl.id','left')
             ->where('sc.delete_flag', self::DELETE_FLAG_FALSE)
             ->where(function (Query $query) use ($levelId, $schType, $enableFlag) {
                 //课程等级
