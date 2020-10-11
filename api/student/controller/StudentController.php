@@ -281,8 +281,8 @@ class StudentController extends RestBaseController
         $leftNum = $leftNum > 0 ? $leftNum : 0;
 
         //次数卡显示剩余天数
-        if ($cardInfo['card_type'] == VipCardModel::TIMES_VIP_CARD) {
-            $leftNum = ceil(($cardInfo['effect_end'] - $cardInfo['effect_start']) / (3600 * 24));
+        if ($cardInfo['card_type'] == VipCardModel::TIME_VIP_CARD) {
+            $leftNum = ceil(($cardInfo['effect_end'] - time()) / (3600 * 24));
             $leftNum = $leftNum > 0 ? $leftNum : 0;
         }
 
