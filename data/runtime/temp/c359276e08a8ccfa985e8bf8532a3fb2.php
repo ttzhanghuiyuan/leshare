@@ -1,4 +1,4 @@
-<?php /*a:2:{s:82:"/home/abner/leshare/public/themes/admin_simpleboot3/admin/class_schedule/edit.html";i:1598776704;s:70:"/home/abner/leshare/public/themes/admin_simpleboot3/public/header.html";i:1598770981;}*/ ?>
+<?php /*a:2:{s:82:"/home/abner/leshare/public/themes/admin_simpleboot3/admin/class_schedule/edit.html";i:1602459077;s:70:"/home/abner/leshare/public/themes/admin_simpleboot3/public/header.html";i:1598770981;}*/ ?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -59,7 +59,7 @@
 <body>
 <div class="wrap">
     <ul class="nav nav-tabs">
-        <li><a href="<?php echo url('class_schedule/index'); ?>"><?php echo lang('课表'); ?></a></li>
+        <li><a href="<?php echo url('class_schedule/index'); ?>"><?php echo lang('课表管理'); ?></a></li>
         <li><a href="<?php echo url('class_schedule/add'); ?>"><?php echo lang('课表添加'); ?></a></li>
         <li class="active"><a>课表编辑</a></li>
     </ul>
@@ -86,6 +86,19 @@
                     <select class="form-control" name="level_id" id="input-level-id" style="width: 150px;">
                         <?php if(is_array($class_level_list) || $class_level_list instanceof \think\Collection || $class_level_list instanceof \think\Paginator): if( count($class_level_list)==0 ) : echo "" ;else: foreach($class_level_list as $key=>$vo): $li_selected=isset($level_id)&&$level_id==$key?"selected":""; ?>
                             <option value="<?php echo $vo['id']; ?>" <?php echo $li_selected; ?>><?php echo $vo['name']; ?></option>
+                        <?php endforeach; endif; else: echo "" ;endif; ?>
+                    </select>
+                </div>
+            </div>
+
+            <!--周-->
+            <div class="form-group">
+                <label for="input-week" class="col-sm-2 control-label">
+                    <span class="form-required">*</span><?php echo lang('周'); ?></label>
+                <div class="col-md-6 col-sm-10">
+                    <select class="form-control" name="week" id="input-week" style="width: 150px;">
+                        <?php if(is_array($week_list) || $week_list instanceof \think\Collection || $week_list instanceof \think\Paginator): if( count($week_list)==0 ) : echo "" ;else: foreach($week_list as $key=>$vo): $week_selected=isset($week)&&$week==$key?"selected":""; ?>
+                            <option value="<?php echo $key; ?>" <?php echo $week_selected; ?>><?php echo $vo; ?></option>
                         <?php endforeach; endif; else: echo "" ;endif; ?>
                     </select>
                 </div>

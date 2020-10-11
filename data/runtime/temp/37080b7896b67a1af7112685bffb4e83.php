@@ -1,4 +1,4 @@
-<?php /*a:2:{s:83:"/home/abner/leshare/public/themes/admin_simpleboot3/admin/class_schedule/index.html";i:1599006840;s:70:"/home/abner/leshare/public/themes/admin_simpleboot3/public/header.html";i:1598770981;}*/ ?>
+<?php /*a:2:{s:83:"/home/abner/leshare/public/themes/admin_simpleboot3/admin/class_schedule/index.html";i:1602458864;s:70:"/home/abner/leshare/public/themes/admin_simpleboot3/public/header.html";i:1598770981;}*/ ?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -77,6 +77,13 @@
 				<?php endforeach; endif; else: echo "" ;endif; ?>
 			</select>
 
+			周:
+			<select class="form-control" name="week" id="input-week" style="width: 150px;">
+				<?php if(is_array($week_list) || $week_list instanceof \think\Collection || $week_list instanceof \think\Paginator): if( count($week_list)==0 ) : echo "" ;else: foreach($week_list as $key=>$vo): $week_selected=isset($week_selected)&&$week_selected==$key?"selected":""; ?>
+					<option value="<?php echo $key; ?>" <?php echo $week_selected; ?>><?php echo $vo; ?></option>
+				<?php endforeach; endif; else: echo "" ;endif; ?>
+			</select>
+
 			启用:
 			<select class="form-control" name="enable_flag" id="input-channel" style="width: 150px;">
 				<?php if(is_array($enable_flag_list) || $enable_flag_list instanceof \think\Collection || $enable_flag_list instanceof \think\Paginator): if( count($enable_flag_list)==0 ) : echo "" ;else: foreach($enable_flag_list as $key=>$vo): $ef_selected=isset($enable_flag_selected)&&$enable_flag_selected==$key?"selected":""; ?>
@@ -93,6 +100,7 @@
 					<th width="50">ID</th>
 					<th><?php echo lang('课表类型'); ?></th>
 					<th><?php echo lang('课程等级'); ?></th>
+					<th><?php echo lang('周'); ?></th>
 					<th><?php echo lang('班级容量'); ?></th>
 					<th><?php echo lang('开始时间'); ?></th>
 					<th><?php echo lang('结束时间'); ?></th>
@@ -114,6 +122,12 @@
 						<?php endif; ?>
 					</td>
 					<td><?php echo $vo['name']; ?></td>
+					<td>
+						<?php if($vo['week'] == 0): ?>
+							<?php echo lang('-'); else: ?>
+							<?php echo $week_list[$vo['week']]; ?>
+						<?php endif; ?>
+					</td>
 					<td><?php echo $vo['study_num']; ?></td>
 					<td>
 						<?php if($vo['start_hour'] == 0): ?>

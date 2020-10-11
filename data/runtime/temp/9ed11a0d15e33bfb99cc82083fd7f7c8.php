@@ -1,4 +1,4 @@
-<?php /*a:2:{s:81:"/home/abner/leshare/public/themes/admin_simpleboot3/admin/class_schedule/add.html";i:1598773072;s:70:"/home/abner/leshare/public/themes/admin_simpleboot3/public/header.html";i:1598770981;}*/ ?>
+<?php /*a:2:{s:81:"/home/abner/leshare/public/themes/admin_simpleboot3/admin/class_schedule/add.html";i:1602458463;s:70:"/home/abner/leshare/public/themes/admin_simpleboot3/public/header.html";i:1598770981;}*/ ?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -84,6 +84,19 @@
                 <select class="form-control" name="level_id" id="input-level-id" style="width: 150px;">
                     <?php if(is_array($class_level_list) || $class_level_list instanceof \think\Collection || $class_level_list instanceof \think\Paginator): if( count($class_level_list)==0 ) : echo "" ;else: foreach($class_level_list as $key=>$vo): ?>
                         <option value="<?php echo $vo['id']; ?>"><?php echo $vo['name']; ?></option>
+                    <?php endforeach; endif; else: echo "" ;endif; ?>
+                </select>
+            </div>
+        </div>
+
+        <!--周-->
+        <div class="form-group">
+            <label for="input-week" class="col-sm-2 control-label">
+                <span class="form-required">*</span><?php echo lang('周'); ?></label>
+            <div class="col-md-6 col-sm-10">
+                <select class="form-control" name="week" id="input-week" style="width: 150px;">
+                    <?php if(is_array($week) || $week instanceof \think\Collection || $week instanceof \think\Paginator): if( count($week)==0 ) : echo "" ;else: foreach($week as $key=>$vo): ?>
+                        <option value="<?php echo $key; ?>"><?php echo $vo; ?></option>
                     <?php endforeach; endif; else: echo "" ;endif; ?>
                 </select>
             </div>

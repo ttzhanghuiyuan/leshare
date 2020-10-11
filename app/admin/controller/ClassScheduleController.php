@@ -38,12 +38,13 @@ class ClassScheduleController extends AdminBaseController
         $levelId = trim($this->request->param('level_id'));
         $schType = trim($this->request->param('sch_type'));
         $enableFlag = trim($this->request->param('enable_flag'));
+        $week = trim($this->request->param('week'));
 
         $classSchedule = Db::name('class_schedule')
             ->alias('sc')
             ->join('class_level cl', 'sc.level_id = cl.id','left')
             ->where('sc.delete_flag', self::DELETE_FLAG_FALSE)
-            ->where(function (Query $query) use ($levelId, $schType, $enableFlag) {
+            ->where(function (Query $query) use ($levelId, $schType, $enableFlag,$week) {
                 //课程等级
                 if ($levelId) {
                     $query->where('sc.level_id', $levelId);
@@ -58,11 +59,16 @@ class ClassScheduleController extends AdminBaseController
                 if($enableFlag){
                     $query->where('sc.enable_flag', $enableFlag);
                 }
+
+                //周
+                if($week){
+                    $query->where('sc.week',$week);
+                }
             })
             ->order('sc.id DESC')
             ->field(
                 'sc.id,sc.sch_type,cl.name,sc.study_num,sc.start_hour,sc.start_minute,sc.end_hour,'.
-                'sc.end_minute,sc.class_date,sc.book_num,sc.create_time,sc.enable_flag'
+                'sc.end_minute,sc.class_date,sc.book_num,sc.create_time,sc.enable_flag,sc.week'
             )->paginate(self::DEFAULT_PAGE_LIMIT);
 
         $classSchedule->appends([
@@ -87,6 +93,8 @@ class ClassScheduleController extends AdminBaseController
         $schTypeList = ClassScheduleModel::SCH_TYPE;
         //启用标识列表
         $enableFlagList = ClassScheduleModel::ENABLE_FLAG;
+        //周
+        $weekList = ClassScheduleModel::WEEK;
 
         $this->assign("page", $page);
         $this->assign("roles", $roles);
@@ -95,10 +103,12 @@ class ClassScheduleController extends AdminBaseController
         $this->assign("sch_type_list", $schTypeList);
         $this->assign("enable_flag_list", $enableFlagList);
         $this->assign("class_level_list", $classLevelList);
+        $this->assign("week_list", $weekList);
 
         $this->assign('sch_type_selected', $schType);
         $this->assign('level_id_selected', $levelId);
         $this->assign('enable_flag_selected', $enableFlag);
+        $this->assign('week_selected', $week);
         return $this->fetch();
     }
 
@@ -127,6 +137,10 @@ class ClassScheduleController extends AdminBaseController
         //启用标识列表
         $enableFlagList = ClassScheduleModel::ENABLE_FLAG;
         $this->assign("enable_flag_list", $enableFlagList);
+
+        //周
+        $week = ClassScheduleModel::WEEK;
+        $this->assign('week', $week);
 
         return $this->fetch();
     }
@@ -188,6 +202,9 @@ class ClassScheduleController extends AdminBaseController
         //启用标识列表
         $enableFlagList = ClassScheduleModel::ENABLE_FLAG;
         $this->assign("enable_flag_list", $enableFlagList);
+        //周
+        $week = ClassScheduleModel::WEEK;
+        $this->assign('week_list', $week);
         return $this->fetch();
     }
 

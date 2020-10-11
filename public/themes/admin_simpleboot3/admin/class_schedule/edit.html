@@ -3,7 +3,7 @@
 <body>
 <div class="wrap">
     <ul class="nav nav-tabs">
-        <li><a href="{:url('class_schedule/index')}">{:lang('课表')}</a></li>
+        <li><a href="{:url('class_schedule/index')}">{:lang('课表管理')}</a></li>
         <li><a href="{:url('class_schedule/add')}">{:lang('课表添加')}</a></li>
         <li class="active"><a>课表编辑</a></li>
     </ul>
@@ -32,6 +32,21 @@
                         <foreach name="class_level_list" item="vo">
                             <php>$li_selected=isset($level_id)&&$level_id==$key?"selected":"";</php>
                             <option value="{$vo['id']}" {$li_selected}>{$vo['name']}</option>
+                        </foreach>
+                    </select>
+                </div>
+            </div>
+
+            <!--周-->
+            <div class="form-group">
+                <label for="input-week" class="col-sm-2 control-label">
+                    {:lang('周')}
+                </label>
+                <div class="col-md-6 col-sm-10">
+                    <select class="form-control" name="week" id="input-week" style="width: 150px;">
+                        <foreach name="week_list" item="vo">
+                            <php>$week_selected=isset($week)&&$week==$key?"selected":"";</php>
+                            <option value="{$key}" {$week_selected}>{$vo}</option>
                         </foreach>
                     </select>
                 </div>

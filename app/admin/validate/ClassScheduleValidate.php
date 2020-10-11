@@ -22,6 +22,7 @@ class ClassScheduleValidate extends Validate
         'end_minute' => 'between:0,59',
         'delete_flag' => 'in:0,1,2',
         'enable_flag' => 'in:0,1,2',
+        'week' => 'between:1,7',
     ];
 
     protected $message = [
@@ -35,5 +36,6 @@ class ClassScheduleValidate extends Validate
         'end_minute.between' => '结束时间分范围0~59',
         'delete_flag.in' => '删除标识错误',
         'enable_flag.in' => '生效标识错误',
+        'week.between' => '周范围异常',
     ];
 }

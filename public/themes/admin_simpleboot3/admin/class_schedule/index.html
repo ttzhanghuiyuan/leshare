@@ -23,6 +23,14 @@
 				</foreach>
 			</select>
 
+			周:
+			<select class="form-control" name="week" id="input-week" style="width: 150px;">
+				<foreach name="week_list" item="vo">
+					<php>$week_selected=isset($week_selected)&&$week_selected==$key?"selected":"";</php>
+					<option value="{$key}" {$week_selected}>{$vo}</option>
+				</foreach>
+			</select>
+
 			启用:
 			<select class="form-control" name="enable_flag" id="input-channel" style="width: 150px;">
 				<foreach name="enable_flag_list" item="vo">
@@ -40,6 +48,7 @@
 					<th width="50">ID</th>
 					<th>{:lang('课表类型')}</th>
 					<th>{:lang('课程等级')}</th>
+					<th>{:lang('周')}</th>
 					<th>{:lang('班级容量')}</th>
 					<th>{:lang('开始时间')}</th>
 					<th>{:lang('结束时间')}</th>
@@ -62,6 +71,13 @@
 						</if>
 					</td>
 					<td>{$vo.name}</td>
+					<td>
+						<if condition="$vo['week'] eq 0">
+							{:lang('-')}
+							<else />
+							{$week_list[$vo['week']]}
+						</if>
+					</td>
 					<td>{$vo.study_num}</td>
 					<td>
 						<if condition="$vo['start_hour'] eq 0">

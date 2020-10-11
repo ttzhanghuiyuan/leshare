@@ -28,8 +28,8 @@ use think\Log;
 
 class StudentController extends RestBaseController
 {
-    const APPID='wx03df51c21dc4151c';
-    const APP_SECRET='0bb0a23969c302ad1bf789403d47b675';
+    const APPID = 'wx03df51c21dc4151c';
+    const APP_SECRET = '0bb0a23969c302ad1bf789403d47b675';
 
     /**
      * @api {POST} https://www.loshare.club/api.php/student/student/matchUser 1-用户首次登录验证绑定
@@ -172,6 +172,9 @@ class StudentController extends RestBaseController
         $levelId = trim($this->request->param('level_id'));
         $date = trim($this->request->param('date'));
 
+        //获取今天周几
+        $week = date("N", strtotime($date));
+
         $bookList = [];
         $nowDate = strtotime($date);
         $nowDateEnd = strtotime('+ 1 day', $nowDate);
@@ -180,9 +183,14 @@ class StudentController extends RestBaseController
             ->where('delete_flag', self::DELETE_FLAG_FALSE)
             ->where('enable_flag', ClassScheduleModel::CLASS_ENABLE)
             ->where('sch_type', ClassScheduleModel::REGULAR_SCH)
-            ->where(function (Query $query) use ($levelId) {
+            ->where(function (Query $query) use ($levelId, $week) {
                 if ($levelId) {
                     $query->where('level_id', $levelId);
+                }
+
+                //周几
+                if ($week) {
+                    $query->where('week', $week);
                 }
             })
             ->field('id,study_num,start_hour,start_minute,end_hour,end_minute')
@@ -205,7 +213,7 @@ class StudentController extends RestBaseController
         $classList = array_merge($regularClass, $temporaryClass);
 
         //数组排序
-        array_multisort(array_column($classList,'start_hour'),SORT_ASC,$classList);
+        array_multisort(array_column($classList, 'start_hour'), SORT_ASC, $classList);
 
         //获取今天已报名数量
         if ($classList) {
@@ -223,8 +231,8 @@ class StudentController extends RestBaseController
             $classId = $item['id'];
             $bookNum = $bookList[$classId] ?? 0;
             $studyNum = $item['study_num'];
-            $item['start_minute'] = $item['start_minute']?$item['start_minute']:'00';
-            $item['end_minute'] = $item['end_minute']?$item['end_minute']:'00';
+            $item['start_minute'] = $item['start_minute'] ? $item['start_minute'] : '00';
+            $item['end_minute'] = $item['end_minute'] ? $item['end_minute'] : '00';
             $item['left_num'] = ($studyNum - $bookNum) > 0 ? ($studyNum - $bookNum) : 0;
         }
 
@@ -273,9 +281,9 @@ class StudentController extends RestBaseController
         $leftNum = $leftNum > 0 ? $leftNum : 0;
 
         //次数卡显示剩余天数
-        if($cardInfo['card_type'] == VipCardModel::TIMES_VIP_CARD){
-            $leftNum = ceil(($cardInfo['effect_end'] - $cardInfo['effect_start'])/(3600*24));
-            $leftNum = $leftNum > 0 ?$leftNum:0;
+        if ($cardInfo['card_type'] == VipCardModel::TIMES_VIP_CARD) {
+            $leftNum = ceil(($cardInfo['effect_end'] - $cardInfo['effect_start']) / (3600 * 24));
+            $leftNum = $leftNum > 0 ? $leftNum : 0;
         }
 
         $this->success('成功', [
@@ -494,10 +502,10 @@ class StudentController extends RestBaseController
     {
         $now = time();
         $monday = strtotime('this week monday', $now);
-        $sunday = strtotime('this week sunday',$now);
+        $sunday = strtotime('this week sunday', $now);
         $classDate = strtotime($classDate);
         //检查约课时间在本周
-        if($classDate < $monday || $classDate > $sunday){
+        if ($classDate < $monday || $classDate > $sunday) {
             exception('只能预约本周课程!');
         }
 
@@ -579,8 +587,8 @@ class StudentController extends RestBaseController
         $studentId = $this->getUserId();
         $startDate = trim($this->request->param('start_date'));
         $endDate = trim($this->request->param('end_date'));
-        trace('abner_test'.$startDate,'info');
-        trace('abner_test'.$endDate,'info');
+        trace('abner_test' . $startDate, 'info');
+        trace('abner_test' . $endDate, 'info');
         //检测冻结
         try {
             $this->checkFreezeStatus($studentId, $startDate, $endDate);
@@ -746,25 +754,25 @@ class StudentController extends RestBaseController
         $code = trim($this->request->param('code'));
         $secret = self::APP_SECRET;
         $appid = self::APPID;
-        $url = "https://api.weixin.qq.com/sns/jscode2session?appid=".$appid."&secret=".$secret."&js_code=".$code."&grant_type=authorization_code";
+        $url = "https://api.weixin.qq.com/sns/jscode2session?appid=" . $appid . "&secret=" . $secret . "&js_code=" . $code . "&grant_type=authorization_code";
 
         $ch = curl_init();
-        curl_setopt($ch,CURLOPT_URL,$url);
-        curl_setopt($ch,CURLOPT_RETURNTRANSFER,1);
-        curl_setopt($ch,CURLOPT_TIMEOUT,30);
+        curl_setopt($ch, CURLOPT_URL, $url);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+        curl_setopt($ch, CURLOPT_TIMEOUT, 30);
 
         $content = curl_exec($ch);
-        $status = (int)curl_getinfo($ch,CURLINFO_HTTP_CODE);
+        $status = (int)curl_getinfo($ch, CURLINFO_HTTP_CODE);
         if ($status == 404) {
             return $status;
         }
         curl_close($ch);
 
-        $contentArr = json_decode($content,true);
+        $contentArr = json_decode($content, true);
 
-        if(isset($contentArr['errcode'])){
+        if (isset($contentArr['errcode'])) {
             $this->error($contentArr['errmsg']);
-        }else{
+        } else {
             $this->success('成功', $contentArr);
         }
     }

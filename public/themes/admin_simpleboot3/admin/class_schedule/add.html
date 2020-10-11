@@ -33,6 +33,20 @@
             </div>
         </div>
 
+        <!--周-->
+        <div class="form-group">
+            <label for="input-week" class="col-sm-2 control-label">
+                {:lang('周')}
+            </label>
+            <div class="col-md-6 col-sm-10">
+                <select class="form-control" name="week" id="input-week" style="width: 150px;">
+                    <foreach name="week" item="vo">
+                        <option value="{$key}">{$vo}</option>
+                    </foreach>
+                </select>
+            </div>
+        </div>
+
         <!--报名人数-->
         <div class="form-group">
             <label for="input-study-num" class="col-sm-2 control-label">

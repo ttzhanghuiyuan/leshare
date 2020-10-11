@@ -14,3 +14,6 @@ create table ls_class_schedule(
     delete_flag tinyint default 2 comment '删除标识1删除2未删除',
     enable_flag tinyint default 1 comment '启用标识1启用2未启用'
 ) ENGINE=InnoDB CHARSET=utf8 COMMENT='课表';
+
+alter table ls_class_schedule add week tinyint default 1 comment '周';
+alter table ls_class_schedule add index `idx_week`(`week`);
