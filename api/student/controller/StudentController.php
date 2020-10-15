@@ -77,6 +77,13 @@ class StudentController extends RestBaseController
 
         if (!$studentId) $this->error('验证手机号密码失败,请联系学校!');
 
+        Db::transaction();
+
+        //清除open_id原账号
+        $clearFlag = Db::name('student')
+            ->where('open_id', $openId)
+            ->update(['open_id' => '']);
+
         $updateFlag = Db::name('student')
             ->where('id', $studentId)
             ->update([
@@ -84,6 +91,12 @@ class StudentController extends RestBaseController
                 'header_url' => $headerUrl,
                 'open_id' => $openId,
             ]);
+
+        if(!$updateFlag){
+            Db::rollback();
+        }else{
+            Db::commit();
+        }
 
         $this->success('验证成功!');
     }
