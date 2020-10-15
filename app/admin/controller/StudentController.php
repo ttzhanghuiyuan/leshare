@@ -239,7 +239,10 @@ class StudentController extends AdminBaseController
 
         $del_flag = Db::name('student')
             ->where('id', $id)
-            ->update(['delete_flag' => self::DELETE_FLAG_TRUE]);
+            ->update([
+                'delete_flag' => self::DELETE_FLAG_TRUE,
+                'open_id' => '',
+            ]);
 
         if ($del_flag !== false) {
             $this->success("删除成功！");

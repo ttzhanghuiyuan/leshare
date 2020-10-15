@@ -281,7 +281,6 @@ class StudentCardController extends AdminBaseController
             ->update([
                 'delete_flag' => self::DELETE_FLAG_TRUE,
                 'enable_flag' => StudentCardModel::UN_ENABLE,
-                'open_id' => '',
             ]);
 
         if ($del_flag !== false) {
