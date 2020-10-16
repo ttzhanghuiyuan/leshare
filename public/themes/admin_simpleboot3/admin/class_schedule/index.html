@@ -18,7 +18,7 @@
 			课程等级:
 			<select class="form-control" name="level_id" id="input-level-id" style="width: 150px;">
 				<foreach name="class_level_list" item="vo">
-					<php>$li_selected=isset($level_id_selected)&&$level_id_selected==$key?"selected":"";</php>
+					<php>$li_selected=isset($level_id_selected)&&$level_id_selected==$vo['id']?"selected":"";</php>
 					<option value="{$vo['id']}" {$li_selected}>{$vo['name']}</option>
 				</foreach>
 			</select>
@@ -26,8 +26,8 @@
 			周:
 			<select class="form-control" name="week" id="input-week" style="width: 150px;">
 				<foreach name="week_list" item="vo">
-					<php>$week_selected=isset($week_selected)&&$week_selected==$key?"selected":"";</php>
-					<option value="{$key}" {$week_selected}>{$vo}</option>
+					<php>$w_selected=isset($week_selected)&&$week_selected==$key?"selected":"";</php>
+					<option value="{$key}" {$w_selected}>{$vo}</option>
 				</foreach>
 			</select>
 
