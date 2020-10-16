@@ -77,7 +77,7 @@ class StudentController extends RestBaseController
 
         if (!$studentId) $this->error('验证手机号密码失败,请联系学校!');
 
-        Db::transaction();
+        Db::startTrans();
 
         //清除open_id原账号
         $clearFlag = Db::name('student')
