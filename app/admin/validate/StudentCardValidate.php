@@ -22,7 +22,7 @@ class StudentCardValidate extends Validate
         'study_num' => 'between:1,1000',
         'freeze_num' => 'between:1,100',
         'freeze_min_day' => 'between:1,365',
-        'week_num' => 'between:1,7',
+        'week_num' => 'between:1,100',
         'delete_flag' => 'in:0,1,2',
         'enable_flag' => 'in:0,1,2',
     ];
