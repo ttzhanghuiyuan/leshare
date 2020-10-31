@@ -559,12 +559,13 @@ class StudentController extends RestBaseController
 
         //检查该学生改周约课情况
         $weekStart = strtotime('this week Monday', $classDate);
-        $weekEnd = strtotime('last week Monday', $classDate);
+        $weekEnd = strtotime('next week Monday', $classDate);
         $weekBookNum = Db::name('book_class')
             ->where('student_id', $studentId)
             ->where('class_start_time', 'between', [$weekStart, $weekEnd])
             ->where('cancel_flag', BookClassModel::UN_CANCEL)
             ->count();
+
         if ($cardInfo['card_type'] == VipCardModel::TIME_VIP_CARD && $weekBookNum >= $cardInfo['week_num']) {
             exception("本周预约超过限制{$cardInfo['week_num']}次");
         }
