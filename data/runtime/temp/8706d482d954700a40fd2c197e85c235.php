@@ -1,4 +1,4 @@
-<?php /*a:2:{s:75:"/home/abner/leshare/public/themes/admin_simpleboot3/admin/student/edit.html";i:1597585623;s:70:"/home/abner/leshare/public/themes/admin_simpleboot3/public/header.html";i:1596947788;}*/ ?>
+<?php /*a:2:{s:75:"/home/abner/leshare/public/themes/admin_simpleboot3/admin/student/edit.html";i:1606527452;s:70:"/home/abner/leshare/public/themes/admin_simpleboot3/public/header.html";i:1598770981;}*/ ?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -20,32 +20,7 @@
     <!--[if lt IE 9]>
     <script src="https://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
-    <style>
-        form .input-order {
-            margin-bottom: 0px;
-            padding: 0 2px;
-            width: 42px;
-            font-size: 12px;
-        }
 
-        form .input-order:focus {
-            outline: none;
-        }
-
-        .table-actions {
-            margin-top: 5px;
-            margin-bottom: 5px;
-            padding: 0px;
-        }
-
-        .table-list {
-            margin-bottom: 0px;
-        }
-
-        .form-required {
-            color: red;
-        }
-    </style>
     <script type="text/javascript">
         //全局变量
         var GV = {
@@ -165,6 +140,20 @@
                 <select id="input-buy-purpose" class="form-control" name="sex" style="width: 150px;">
                     <?php if(is_array($sex_list) || $sex_list instanceof \think\Collection || $sex_list instanceof \think\Paginator): if( count($sex_list)==0 ) : echo "" ;else: foreach($sex_list as $key=>$vo): $sex_selected=isset($sex)&&$sex==$key?"selected":""; ?>
                         <option value="<?php echo $key; ?>" <?php echo $sex_selected; ?>><?php echo $vo; ?></option>
+                    <?php endforeach; endif; else: echo "" ;endif; ?>
+                </select>
+            </div>
+        </div>
+
+        <!--校区-->
+        <div class="form-group">
+            <label for="input-buy-purpose" class="col-sm-2 control-label">
+                <?php echo lang('校区'); ?>
+            </label>
+            <div class="col-md-6 col-sm-10">
+                <select id="input-school-id" class="form-control" name="school_id" style="width: 150px;">
+                    <?php if(is_array($school_list) || $school_list instanceof \think\Collection || $school_list instanceof \think\Paginator): if( count($school_list)==0 ) : echo "" ;else: foreach($school_list as $key=>$vo): $flag_selected=isset($school_id)&&$school_id==$vo['id']?"selected":""; ?>
+                        <option value="<?php echo $vo['id']; ?>" <?php echo $flag_selected; ?>><?php echo $vo['school_name']; ?></option>
                     <?php endforeach; endif; else: echo "" ;endif; ?>
                 </select>
             </div>

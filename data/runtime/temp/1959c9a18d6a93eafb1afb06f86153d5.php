@@ -1,4 +1,4 @@
-<?php /*a:2:{s:76:"/home/abner/leshare/public/themes/admin_simpleboot3/admin/student/index.html";i:1598831259;s:70:"/home/abner/leshare/public/themes/admin_simpleboot3/public/header.html";i:1598770981;}*/ ?>
+<?php /*a:2:{s:76:"/home/abner/leshare/public/themes/admin_simpleboot3/admin/student/index.html";i:1606527090;s:70:"/home/abner/leshare/public/themes/admin_simpleboot3/public/header.html";i:1598770981;}*/ ?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -69,6 +69,12 @@
 			<input type="text" class="form-control" name="name" style="width: 130px;" value="<?php echo input('request.name/s',''); ?>" placeholder="请输入<?php echo lang('学生姓名'); ?>">
 			昵称:
 			<input type="text" class="form-control" name="nick" style="width: 130px;" value="<?php echo input('request.nick/s',''); ?>" placeholder="请输入<?php echo lang('学生昵称'); ?>">
+			校区:
+			<select class="form-control" name="school_id" id="input-school-id" style="width: 150px;">
+				<?php if(is_array($school_list_for_select) || $school_list_for_select instanceof \think\Collection || $school_list_for_select instanceof \think\Paginator): if( count($school_list_for_select)==0 ) : echo "" ;else: foreach($school_list_for_select as $key=>$vo): $flag_selected=isset($school_id_selected)&&$school_id_selected==$vo['id']?"selected":""; ?>
+					<option value="<?php echo $vo['id']; ?>" <?php echo $flag_selected; ?>><?php echo $vo['school_name']; ?></option>
+				<?php endforeach; endif; else: echo "" ;endif; ?>
+			</select>
 			<input type="submit" class="btn btn-primary" value="搜索" />
             <a class="btn btn-danger" href="<?php echo url('Student/index'); ?>">清空</a>
         </form>
@@ -77,6 +83,7 @@
 				<tr>
 					<th width="50">ID</th>
 					<th><?php echo lang('姓名'); ?></th>
+					<th><?php echo lang('校区'); ?></th>
 					<th><?php echo lang('昵称'); ?></th>
 					<th><?php echo lang('微信昵称'); ?></th>
 					<th><?php echo lang('年龄'); ?></th>
@@ -94,6 +101,12 @@
 				<tr>
 					<td><?php echo $vo['id']; ?></td>
 					<td><?php echo $vo['name']; ?></td>
+					<td>
+						<?php if($vo['school_id'] == 0): ?>
+							<?php echo lang('-'); else: ?>
+							<?php echo $school_list[$vo['school_id']]['school_name']; ?>
+						<?php endif; ?>
+					</td>
 					<td><?php echo $vo['nick']; ?></td>
 					<td><?php echo $vo['wx_nick']; ?></td>
 					<td><?php echo $vo['age']; ?></td>

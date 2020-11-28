@@ -16,3 +16,8 @@ create table ls_student(
     pass varchar(255) comment '绑定密码',
     index `idx_name`(`name`)
 ) ENGINE=InnoDB CHARSET=utf8 COMMENT='试听用户信息';
+
+alter table ls_student add (
+    school_id int default 0 comment '校区id',
+    index `idx_school_id`(`school_id`)
+);

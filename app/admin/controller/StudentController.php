@@ -38,10 +38,11 @@ class StudentController extends AdminBaseController
         $name = trim($this->request->param('name'));
         $nick = trim($this->request->param('nick'));
         $phone = trim($this->request->param('phone'));
+        $schoolId = intval($this->request->param('school_id'));
 
         $student = Db::name('student')
             ->where('delete_flag', self::DELETE_FLAG_FALSE)
-            ->where(function (Query $query) use ($phone, $name, $nick) {
+            ->where(function (Query $query) use ($phone, $name, $nick, $schoolId) {
                 if ($phone) {
                     $query->where('phone', $phone);
                 }
@@ -53,10 +54,14 @@ class StudentController extends AdminBaseController
                 if ($nick) {
                     $query->where('nick', 'like', "{$nick}%");
                 }
+
+                if($schoolId){
+                    $query->where('school_id',$schoolId);
+                }
             })
             ->field(
                 'id,name,nick,wx_nick,header_url,age,parent_name,phone,birthday,sex,' .
-                'create_time,update_time,pass'
+                'create_time,update_time,pass,school_id'
             )
             ->order('id DESC')
             ->paginate(self::DEFAULT_PAGE_LIMIT);
@@ -80,10 +85,17 @@ class StudentController extends AdminBaseController
         //性别
         $sex = StudentModel::SEX;
 
+        //获取所有校区
+        $schoolListForSelect =  (new SchoolController())->get_all_school_for_select();
+        $schoolList = array_column($schoolListForSelect, null, 'id');
+
         $this->assign("page", $page);
         $this->assign("roles", $roles);
         $this->assign("student", $student);
         $this->assign("sex", $sex);
+        $this->assign("school_list_for_select", $schoolListForSelect);
+        $this->assign("school_list", $schoolList);
+        $this->assign("school_id_selected", $schoolId);
         return $this->fetch();
     }
 
@@ -106,6 +118,10 @@ class StudentController extends AdminBaseController
         //性别
         $sex = StudentModel::SEX;
         $this->assign('sex', $sex);
+
+        //获取所有校区
+        $schoolList = (new SchoolController())->get_all_school_for_select();
+        $this->assign('school_list',$schoolList);
 
         return $this->fetch();
     }
@@ -198,6 +214,11 @@ class StudentController extends AdminBaseController
         //性别
         $sexList = StudentModel::SEX;
         $this->assign('sex_list', $sexList);
+
+        //获取所有校区
+        $schoolList = (new SchoolController())->get_all_school_for_select();
+        $this->assign('school_list',$schoolList);
+
         return $this->fetch();
     }
 
@@ -250,4 +271,6 @@ class StudentController extends AdminBaseController
             $this->error("删除失败！");
         }
     }
+
+
 }

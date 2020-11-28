@@ -21,6 +21,15 @@
 					<option value="{$key}" {$schedule_selected}>{$vo['name']}</option>
 				</foreach>
 			</select>
+
+			校区:
+			<select class="form-control" name="school_id" id="input-school-id" style="width: 150px;">
+				<foreach name="school_list" item="vo">
+					<php>$flag_selected=isset($school_id)&&$school_id==$key?"selected":"";</php>
+					<option value="{$key}" {$flag_selected}>{$vo['school_name']}</option>
+				</foreach>
+			</select>
+
 			<input type="submit" class="btn btn-primary" value="搜索" />
             <a class="btn btn-danger" href="{:url('BookClass/index')}">清空</a>
         </form>
@@ -29,6 +38,7 @@
 				<tr>
 					<th>ID</th>
 					<th>{:lang('学生姓名')}</th>
+					<th>{:lang('校区')}</th>
 					<th>{:lang('课程等级')}</th>
 					<th>{:lang('是否取消')}</th>
 					<th>{:lang('课程开始时间')}</th>
@@ -42,6 +52,13 @@
 				<tr>
 					<td>{$vo.id}</td>
 					<td>{$vo.s_name}</td>
+					<td>
+						<if condition="$vo['school_id'] eq 0">
+							{:lang('-')}
+							<else />
+							{$school_list[$vo['school_id']]['school_name']}
+						</if>
+					</td>
 					<td>{$vo.level_name}</td>
 					<td>
 						<if condition="$vo['cancel_flag'] eq 2">

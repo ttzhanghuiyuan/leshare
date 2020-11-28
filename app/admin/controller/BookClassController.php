@@ -44,12 +44,13 @@ class BookClassController extends AdminBaseController
         $name = trim($this->request->param('name'));
         $startTime = trim($this->request->param('start_time'));
         $scheduleId = $this->request->param('schedule_id','0', 'intval');
+        $schoolId = $this->request->param('school_id','0', 'intval');
 
         $buckleHour = Db::name('book_class')
             ->alias('bc')
             ->join('student s', 'bc.student_id = s.id', 'left')
             ->where('bc.delete_flag', self::DELETE_FLAG_FALSE)
-            ->where(function (Query $query) use ($name,$startTime,$scheduleId) {
+            ->where(function (Query $query) use ($name,$startTime,$scheduleId,$schoolId) {
                 if ($name) {
                     $query->where('s.name', 'like', "{$name}%");
                 }
@@ -63,11 +64,15 @@ class BookClassController extends AdminBaseController
                 if($scheduleId){
                     $query->where('bc.class_sch_id', $scheduleId);
                 }
+
+                if($schoolId){
+                    $query->where('bc.school_id',$schoolId);
+                }
             })
             ->order('bc.id DESC')
             ->field(
                 'bc.id,s.name s_name,bc.level_name,bc.cancel_flag,bc.class_start_time,bc.class_end_time,'.
-                'bc.create_time'
+                'bc.create_time,bc.school_id'
             )->paginate(self::DEFAULT_PAGE_LIMIT);
 
         $buckleHour->appends(['name' => $name]);
@@ -83,6 +88,11 @@ class BookClassController extends AdminBaseController
         }
 
         $cancelFlagList = BookClassModel::CANCEL_FLAG;
+
+        //获取所有校区
+        $schoolListForSelect =  (new SchoolController())->get_all_school_for_select();
+        $schoolList = array_column($schoolListForSelect, null, 'id');
+        $this->assign('school_list',$schoolList);
 
         //获取课表列表
         $schedule = $this->getScheduleList();

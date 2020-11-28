@@ -13,3 +13,8 @@ create table ls_book_class(
     index `idx_cs_id`(`class_sch_id`),
     index `idx_cs_time`(`class_start_time`)
 ) ENGINE=InnoDB CHARSET=utf8 COMMENT='约课记录';
+
+alter table ls_book_class add (
+    school_id int default 0 comment '校区id',
+    index `idx_school_id`(`school_id`)
+);

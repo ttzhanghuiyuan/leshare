@@ -17,3 +17,8 @@ create table ls_class_schedule(
 
 alter table ls_class_schedule add week tinyint default 1 comment '周';
 alter table ls_class_schedule add index `idx_week`(`week`);
+
+alter table ls_class_schedule add (
+    school_id int default 0 comment '校区id',
+    index `idx_school_id`(`school_id`)
+);

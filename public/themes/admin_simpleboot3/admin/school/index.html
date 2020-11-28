@@ -1,0 +1,58 @@
+<include file="public@header" />
+</head>
+<body>
+	<div class="wrap js-check-wrap">
+		<ul class="nav nav-tabs">
+			<li class="active"><a href="{:url('school/index')}">{:lang('校区管理')}</a></li>
+			<li><a href="{:url('school/add')}">{:lang('校区添加')}</a></li>
+		</ul>
+        <form class="well form-inline margin-top-20" method="get" action="{:url('School/index')}">
+            校区名称:
+            <input type="text" class="form-control" name="school_name" style="width: 130px;" value="{:input('request.school_name/s','')}" placeholder="请输入{:lang('校区名称')}">
+			<input type="submit" class="btn btn-primary" value="搜索" />
+            <a class="btn btn-danger" href="{:url('School/index')}">清空</a>
+        </form>
+		<table class="table table-hover table-bordered">
+			<thead>
+				<tr>
+					<th width="50">ID</th>
+					<th>{:lang('名称')}</th>
+					<th>{:lang('创建日期')}</th>
+					<th>{:lang('修改日期')}</th>
+					<th width="140">{:lang('ACTIONS')}</th>
+				</tr>
+			</thead>
+			<tbody>
+				<foreach name="school" item="vo">
+				<tr>
+					<td>{$vo.id}</td>
+					<td>{$vo.school_name}</td>
+					<td>
+						<if condition="$vo['create_time'] eq 0">
+							{:lang('-')}
+							<else />
+							{:date('Y-m-d H:i',$vo['create_time'])}
+						</if>
+					</td>
+					<td>
+						<if condition="$vo['update_time'] eq 0">
+							{:lang('-')}
+							<else />
+							{:date('Y-m-d H:i',$vo['update_time'])}
+						</if>
+					</td>
+					<td>
+						<a class="btn btn-xs btn-primary"
+						   href='{:url("school/edit",array("id"=>$vo["id"]))}'>{:lang('EDIT')}</a>
+						<a class="btn btn-xs btn-danger js-ajax-delete"
+						   href="{:url('school/delete',array('id'=>$vo['id']))}">{:lang('DELETE')}</a>
+					</td>
+				</tr>
+				</foreach>
+			</tbody>
+		</table>
+		<div class="pagination">{$page}</div>
+	</div>
+	<script src="__STATIC__/js/admin.js"></script>
+</body>
+</html>

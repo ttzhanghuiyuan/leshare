@@ -184,6 +184,16 @@ class StudentController extends RestBaseController
     {
         $levelId = trim($this->request->param('level_id'));
         $date = trim($this->request->param('date'));
+        $studentId = $this->getUserId();
+
+        //获取用户校区
+        $schoolId = Db::name("student")
+            ->where('id', $studentId)
+            ->value("school_id");
+
+        if(!$schoolId){
+            $this->error('未选择校区，请联系学校');
+        }
 
         //获取今天周几
         $week = date("N", strtotime($date));
@@ -196,6 +206,7 @@ class StudentController extends RestBaseController
             ->where('delete_flag', self::DELETE_FLAG_FALSE)
             ->where('enable_flag', ClassScheduleModel::CLASS_ENABLE)
             ->where('sch_type', ClassScheduleModel::REGULAR_SCH)
+            ->where('school_id', $schoolId)
             ->where(function (Query $query) use ($levelId, $week) {
                 if ($levelId) {
                     $query->where('level_id', $levelId);
@@ -214,6 +225,7 @@ class StudentController extends RestBaseController
             ->where('enable_flag', ClassScheduleModel::CLASS_ENABLE)
             ->where('sch_type', ClassScheduleModel::TEMPORARY_SCH)
             ->where('class_date', $nowDate)
+            ->where('school_id', $schoolId)
             ->where(function (Query $query) use ($levelId) {
                 if ($levelId) {
                     $query->where('level_id', $levelId);
@@ -381,7 +393,7 @@ class StudentController extends RestBaseController
             ->join('class_level cl', 'cs.level_id = cl.id', 'left')
             ->where('cs.enable_flag', ClassScheduleModel::CLASS_ENABLE)
             ->where('cs.delete_flag', self::DELETE_FLAG_FALSE)
-            ->field('cl.name cl_name,cs.start_hour,cs.start_minute,end_hour,end_minute')
+            ->field('cl.name cl_name,cs.start_hour,cs.start_minute,end_hour,end_minute,cs.school_id')
             ->find();
 
         if (!$csInfo) exception('未找到课表信息!');
@@ -402,6 +414,7 @@ class StudentController extends RestBaseController
             'class_end_time' => $classEnd,
             'create_time' => $nowTime,
             'update_time' => $nowTime,
+            'school_id' => $csInfo['school_id'],
         ];
 
         //获取学生会员卡信息

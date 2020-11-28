@@ -87,6 +87,20 @@
 				</div>
 			</div>
 
+			<!--校区-->
+			<div class="form-group">
+				<label for="input-school-id" class="col-sm-2 control-label">
+					{:lang('校区')}
+				</label>
+				<div class="col-md-6 col-sm-10">
+					<select id="input-school-id" class="form-control" name="school_id" style="width: 150px;">
+						<foreach name="school_list" item="vo">
+							<option value="{$vo['id']}">{$vo['school_name']}</option>
+						</foreach>
+					</select>
+				</div>
+			</div>
+
 			<div class="form-group">
 				<div class="col-sm-offset-2 col-sm-10">
 					<button type="submit" class="btn btn-primary js-ajax-submit">{:lang('ADD')}</button>

@@ -1,4 +1,4 @@
-<?php /*a:2:{s:79:"/home/abner/leshare/public/themes/admin_simpleboot3/admin/book_class/index.html";i:1600583497;s:70:"/home/abner/leshare/public/themes/admin_simpleboot3/public/header.html";i:1598770981;}*/ ?>
+<?php /*a:2:{s:79:"/home/abner/leshare/public/themes/admin_simpleboot3/admin/book_class/index.html";i:1606543291;s:70:"/home/abner/leshare/public/themes/admin_simpleboot3/public/header.html";i:1598770981;}*/ ?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -76,6 +76,14 @@
 					<option value="<?php echo $key; ?>" <?php echo $schedule_selected; ?>><?php echo $vo['name']; ?></option>
 				<?php endforeach; endif; else: echo "" ;endif; ?>
 			</select>
+
+			校区:
+			<select class="form-control" name="school_id" id="input-school-id" style="width: 150px;">
+				<?php if(is_array($school_list) || $school_list instanceof \think\Collection || $school_list instanceof \think\Paginator): if( count($school_list)==0 ) : echo "" ;else: foreach($school_list as $key=>$vo): $flag_selected=isset($school_id)&&$school_id==$key?"selected":""; ?>
+					<option value="<?php echo $key; ?>" <?php echo $flag_selected; ?>><?php echo $vo['school_name']; ?></option>
+				<?php endforeach; endif; else: echo "" ;endif; ?>
+			</select>
+
 			<input type="submit" class="btn btn-primary" value="搜索" />
             <a class="btn btn-danger" href="<?php echo url('BookClass/index'); ?>">清空</a>
         </form>
@@ -84,6 +92,7 @@
 				<tr>
 					<th>ID</th>
 					<th><?php echo lang('学生姓名'); ?></th>
+					<th><?php echo lang('校区'); ?></th>
 					<th><?php echo lang('课程等级'); ?></th>
 					<th><?php echo lang('是否取消'); ?></th>
 					<th><?php echo lang('课程开始时间'); ?></th>
@@ -97,6 +106,12 @@
 				<tr>
 					<td><?php echo $vo['id']; ?></td>
 					<td><?php echo $vo['s_name']; ?></td>
+					<td>
+						<?php if($vo['school_id'] == 0): ?>
+							<?php echo lang('-'); else: ?>
+							<?php echo $school_list[$vo['school_id']]['school_name']; ?>
+						<?php endif; ?>
+					</td>
 					<td><?php echo $vo['level_name']; ?></td>
 					<td>
 						<?php if($vo['cancel_flag'] == 2): ?>

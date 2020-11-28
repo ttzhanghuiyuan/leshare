@@ -39,12 +39,13 @@ class ClassScheduleController extends AdminBaseController
         $schType = trim($this->request->param('sch_type'));
         $enableFlag = trim($this->request->param('enable_flag'));
         $week = trim($this->request->param('week'));
+        $schoolId = intval($this->request->param('school_id'));
 
         $classSchedule = Db::name('class_schedule')
             ->alias('sc')
             ->join('class_level cl', 'sc.level_id = cl.id','left')
             ->where('sc.delete_flag', self::DELETE_FLAG_FALSE)
-            ->where(function (Query $query) use ($levelId, $schType, $enableFlag,$week) {
+            ->where(function (Query $query) use ($levelId, $schType, $enableFlag,$week,$schoolId) {
                 //课程等级
                 if ($levelId) {
                     $query->where('sc.level_id', $levelId);
@@ -64,11 +65,16 @@ class ClassScheduleController extends AdminBaseController
                 if($week){
                     $query->where('sc.week',$week);
                 }
+
+                //校区id
+                if($schoolId){
+                    $query->where('sc.school_id',$schoolId);
+                }
             })
             ->order('sc.id DESC')
             ->field(
                 'sc.id,sc.sch_type,cl.name,sc.study_num,sc.start_hour,sc.start_minute,sc.end_hour,'.
-                'sc.end_minute,sc.class_date,sc.book_num,sc.create_time,sc.enable_flag,sc.week'
+                'sc.end_minute,sc.class_date,sc.book_num,sc.create_time,sc.enable_flag,sc.week,sc.school_id'
             )->paginate(self::DEFAULT_PAGE_LIMIT);
 
         $classSchedule->appends([
@@ -95,6 +101,9 @@ class ClassScheduleController extends AdminBaseController
         $enableFlagList = ClassScheduleModel::ENABLE_FLAG;
         //周
         $weekList = ClassScheduleModel::WEEK;
+        //获取所有校区
+        $schoolListForSelect =  (new SchoolController())->get_all_school_for_select();
+        $schoolList = array_column($schoolListForSelect, null, 'id');
 
         $this->assign("page", $page);
         $this->assign("roles", $roles);
@@ -109,6 +118,9 @@ class ClassScheduleController extends AdminBaseController
         $this->assign('level_id_selected', $levelId);
         $this->assign('enable_flag_selected', $enableFlag);
         $this->assign('week_selected', $week);
+
+        $this->assign('school_list',$schoolList);
+        $this->assign('school_id',$schoolId);
         return $this->fetch();
     }
 
@@ -141,6 +153,10 @@ class ClassScheduleController extends AdminBaseController
         //周
         $week = ClassScheduleModel::WEEK;
         $this->assign('week', $week);
+
+        //获取所有校区
+        $schoolList = (new SchoolController())->get_all_school_for_select();
+        $this->assign('school_list',$schoolList);
 
         return $this->fetch();
     }
@@ -205,6 +221,12 @@ class ClassScheduleController extends AdminBaseController
         //周
         $week = ClassScheduleModel::WEEK;
         $this->assign('week_list', $week);
+
+        //获取所有校区
+        $schoolListForSelect =  (new SchoolController())->get_all_school_for_select();
+        $schoolList = array_column($schoolListForSelect, null, 'id');
+        $this->assign('school_list',$schoolList);
+
         return $this->fetch();
     }
 

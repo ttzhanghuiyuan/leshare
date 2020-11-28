@@ -1,4 +1,4 @@
-<?php /*a:2:{s:82:"/home/abner/leshare/public/themes/admin_simpleboot3/admin/class_schedule/edit.html";i:1602459077;s:70:"/home/abner/leshare/public/themes/admin_simpleboot3/public/header.html";i:1598770981;}*/ ?>
+<?php /*a:2:{s:82:"/home/abner/leshare/public/themes/admin_simpleboot3/admin/class_schedule/edit.html";i:1606538705;s:70:"/home/abner/leshare/public/themes/admin_simpleboot3/public/header.html";i:1598770981;}*/ ?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -94,7 +94,8 @@
             <!--周-->
             <div class="form-group">
                 <label for="input-week" class="col-sm-2 control-label">
-                    <span class="form-required">*</span><?php echo lang('周'); ?></label>
+                    <?php echo lang('周'); ?>
+                </label>
                 <div class="col-md-6 col-sm-10">
                     <select class="form-control" name="week" id="input-week" style="width: 150px;">
                         <?php if(is_array($week_list) || $week_list instanceof \think\Collection || $week_list instanceof \think\Paginator): if( count($week_list)==0 ) : echo "" ;else: foreach($week_list as $key=>$vo): $week_selected=isset($week)&&$week==$key?"selected":""; ?>
@@ -163,6 +164,20 @@
                            id="input-class-date"
                            placeholder="2013-01-04"
                            name="class_date">
+                </div>
+            </div>
+
+            <!--校区-->
+            <div class="form-group">
+                <label for="input-school-id" class="col-sm-2 control-label">
+                    <?php echo lang('校区'); ?>
+                </label>
+                <div class="col-md-6 col-sm-10">
+                    <select id="input-school-id" class="form-control" name="school_id" style="width: 150px;">
+                        <?php if(is_array($school_list) || $school_list instanceof \think\Collection || $school_list instanceof \think\Paginator): if( count($school_list)==0 ) : echo "" ;else: foreach($school_list as $key=>$vo): $flag_selected=isset($school_id)&&$school_id==$key?"selected":""; ?>
+                            <option value="<?php echo $key; ?>" <?php echo $flag_selected; ?>><?php echo $vo['school_name']; ?></option>
+                        <?php endforeach; endif; else: echo "" ;endif; ?>
+                    </select>
                 </div>
             </div>
 

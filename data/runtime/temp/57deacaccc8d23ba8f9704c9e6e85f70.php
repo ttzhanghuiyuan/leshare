@@ -1,4 +1,4 @@
-<?php /*a:2:{s:74:"/home/abner/leshare/public/themes/admin_simpleboot3/admin/student/add.html";i:1597583817;s:70:"/home/abner/leshare/public/themes/admin_simpleboot3/public/header.html";i:1598770981;}*/ ?>
+<?php /*a:2:{s:74:"/home/abner/leshare/public/themes/admin_simpleboot3/admin/student/add.html";i:1606526158;s:70:"/home/abner/leshare/public/themes/admin_simpleboot3/public/header.html";i:1598770981;}*/ ?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -138,6 +138,20 @@
 					<select id="input-buy-purpose" class="form-control" name="sex" style="width: 150px;">
 						<?php if(is_array($sex) || $sex instanceof \think\Collection || $sex instanceof \think\Paginator): if( count($sex)==0 ) : echo "" ;else: foreach($sex as $key=>$vo): ?>
 							<option value="<?php echo $key; ?>"><?php echo $vo; ?></option>
+						<?php endforeach; endif; else: echo "" ;endif; ?>
+					</select>
+				</div>
+			</div>
+
+			<!--校区-->
+			<div class="form-group">
+				<label for="input-buy-purpose" class="col-sm-2 control-label">
+					<?php echo lang('校区'); ?>
+				</label>
+				<div class="col-md-6 col-sm-10">
+					<select id="input-school-id" class="form-control" name="school_id" style="width: 150px;">
+						<?php if(is_array($school_list) || $school_list instanceof \think\Collection || $school_list instanceof \think\Paginator): if( count($school_list)==0 ) : echo "" ;else: foreach($school_list as $key=>$vo): ?>
+							<option value="<?php echo $vo['id']; ?>"><?php echo $vo['school_name']; ?></option>
 						<?php endforeach; endif; else: echo "" ;endif; ?>
 					</select>
 				</div>

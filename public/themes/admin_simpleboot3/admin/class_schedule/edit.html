@@ -114,6 +114,21 @@
                 </div>
             </div>
 
+            <!--校区-->
+            <div class="form-group">
+                <label for="input-school-id" class="col-sm-2 control-label">
+                    {:lang('校区')}
+                </label>
+                <div class="col-md-6 col-sm-10">
+                    <select id="input-school-id" class="form-control" name="school_id" style="width: 150px;">
+                        <foreach name="school_list" item="vo">
+                            <php>$flag_selected=isset($school_id)&&$school_id==$key?"selected":"";</php>
+                            <option value="{$key}" {$flag_selected}>{$vo['school_name']}</option>
+                        </foreach>
+                    </select>
+                </div>
+            </div>
+
             <!--启用标识-->
             <div class="form-group">
                 <label for="input-enable-flag" class="col-sm-2 control-label">
