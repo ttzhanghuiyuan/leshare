@@ -393,6 +393,7 @@ class StudentController extends RestBaseController
             ->join('class_level cl', 'cs.level_id = cl.id', 'left')
             ->where('cs.enable_flag', ClassScheduleModel::CLASS_ENABLE)
             ->where('cs.delete_flag', self::DELETE_FLAG_FALSE)
+            ->where('cs.id',$csId)
             ->field('cl.name cl_name,cs.start_hour,cs.start_minute,end_hour,end_minute,cs.school_id')
             ->find();
 
